@@ -174,7 +174,3 @@ function mg_kwh(mg_m3, o2, F) {
     return ret;
 }
 
-document.getElementById("navbar_burger").addEventListener("click", function () {
-    this.classList.toggle("is-active")
-    document.getElementById("navbar_menu").classList.toggle("is-active")
-})
