@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MRU kalkulator
+    </title>
+    <link rel="stylesheet" href="bulma.min.css">
+    <link href="favicon.ico" rel="icon" type="image/x-icon" />
+</head>
+
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://www.mru.si" target="_blank">
+                <img src="https://www.mru.si/skin/mru/mru/logo-header.png" width="45" height="30">
+            </a>
+
+            <a role="button" class="navbar-burger" id="navbar_burger" aria-label="menu" aria-expanded="false"
+                data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div class="navbar-menu" id="navbar_menu">
+            <div class="navbar-start">
+                <a href="/index.html" class="navbar-item">
+                    <p class="subtitle"> Osnovni kalkulator</p>
+                </a>
+
+                <a href="/advanced.html" class="navbar-item">
+                    <p class="subtitle"> Napredni kalkulator</p>
+                </a>
+                <a href="/theory.html" class="navbar-item">
+                    <p class="subtitle"> Teorija</p>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-half">
+                    <div class="box" style="height:100%">
+                        <p class="title is-4">Izmerjene vrednosti</p>
+
+                        <form id="input_form">
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">O<sub>2</sub></label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field has-addons">
+                                        <div class="control is-expanded">
+                                            <input class="input" type="number" min="0" max="20.89" id="input_O2" step=".01"
+                                                placeholder="10.00"></input>
+                                        </div>
+                                        <div class="control">
+                                            <a class="button is-static">
+                                                <b>%</b>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">CO</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field has-addons">
+                                        <div class="control is-expanded">
+                                            <input class="input" type="number" id="input_CO" step=".1" min="0"
+                                                placeholder="500"></input>
+                                        </div>
+
+                                        <div class="control">
+                                            <span class="select">
+                                                <select id="unit_CO" name="unit_co" onchange="hide_o2()">
+                                                    <option value="ppm">ppm</option>
+                                                    <option value="mg_m3">mg/m3</option>
+                                                    <option value="mg_m3_o2">mg/m3 | O2ref</option>
+                                                    <option value="mg_kwh">mg/kWh</option>
+                                                </select>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">NO</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field has-addons">
+                                        <div class="control is-expanded">
+                                            <input class="input" type="number" id="input_NO" step=".1" min="0"
+                                                placeholder="100"></input>
+                                        </div>
+
+                                        <div class="control">
+                                            <span class="select">
+                                                <select class="select" id="unit_NO" name="unit_no" onchange="hide_o2()">
+                                                    <option value="ppm">ppm</option>
+                                                    <option value="mg_m3">mg/m3</option>
+                                                    <option value="mg_m3_o2">mg/m3 | O2ref</option>
+                                                    <option value="mg_kwh">mg/kWh</option>
+                                                </select>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field is-horizontal" id="row_o2ref" style="visibility:hidden">
+                                <div class="field-label is-normal">
+                                    <label class="label">O<sub>2,ref</sub></label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field has-addons">
+                                        <div class="control is-expanded">
+                                            <input min="0" max="20.89" class="input" type="number" id="input_o2ref"
+                                                placeholder="3"></input>
+                                        </div>
+                                        <div class="control">
+                                            <a class="button is-static">
+                                                <b>%</b>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="column is-half">
+                    <div class="box" style="height:100%">
+                        <p class="title is-4">Parametri za izračun</p>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">O<sub>2,ref</sub></label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field has-addons">
+                                    <div class="control is-expanded">
+                                        <input class="input" type="number" id="calc_o2ref" value="3" min="0" max="20.89"
+                                            form="input_form"></input>
+                                    </div>
+                                    <div class="control">
+                                        <a class="button is-static">
+                                            <b>%</b>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">NO<sub>x</sub> dodatek</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field has-addons">
+                                    <div class="control is-expanded">
+                                        <input class="input" type="number" id="input_NOx" min="0" value="5"
+                                            form="input_form"></input>
+                                    </div>
+                                    <div class="control">
+                                        <a class="button is-static">
+                                            <b>%</b>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Gorivo</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <div class="control">
+                                        <div class="select">
+                                            <select id="input_fuel" name="unit_no" form="input_form">
+                                                <option value="erdgas_LL">Zemeljski plin</option>
+                                                <option value="heizol_EL">Kurilno olje</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field is-grouped is-grouped-right">
+                            <div class="control">
+                                <button class="button is-link" type="submit" form="input_form">Izračun</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </br>
+        <div class="box">
+            <p class="title is-4">Rezultati</p>
+
+            <div class="columns">
+                <div class="column is-one-third">
+                    <table class="table is-striped is-fullwidth">
+                        <tbody>
+                            <tr>
+                                <th>CO</th>
+                                <td id="output_CO_ppm">0</td>
+                                <td>ppm</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td id="output_CO_m3">0</td>
+                                <td>mg/m<sup>3</sup></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td id="output_CO_m3o2">0</td>
+                                <td id="output_CO_m3o2_unit">mg/m<sup>3</sup> | O<sub>2ref</sub></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td id="output_CO_kwh">0</td>
+                                <td>mg/kWh</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="column is-one-third">
+                    <table class="table is-striped is-fullwidth">
+                        <tbody>
+                            <tr>
+                                <th>NO</th>
+                                <td id="output_NO_ppm">0</td>
+                                <td>ppm</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td id="output_NO_m3">0</td>
+                                <td>mg/m<sup>3</sup></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td id="output_NO_m3o2">0</td>
+                                <td id="output_NO_m3o2_unit">mg/m<sup>3</sup> | O<sub>2ref</sub></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td id="output_NO_kwh">0</td>
+                                <td>mg/kWh</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="column is-one-third">
+                    <table class="table is-striped is-fullwidth">
+                        <tbody>
+                            <tr>
+                                <th>NOx</th>
+                                <td id="output_NOx_ppm">0</td>
+                                <td>ppm</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td id="output_NOx_m3">0</td>
+                                <td>mg/m<sup>3</sup></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td id="output_NOx_m3o2">0</td>
+                                <td id="output_NOx_m3o2_unit">mg/m<sup>3</sup> | O<sub>2ref</sub></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td id="output_NOx_kwh">0</td>
+                                <td>mg/kWh</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <script src="calculator.js"></script>
+</body>
+
+</html>
