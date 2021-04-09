@@ -70,8 +70,11 @@ const GASES = {
 function hide_o2() {
     if (document.getElementById("unit_CO").value == "mg_m3_o2" || document.getElementById("unit_NO").value == "mg_m3_o2") {
         document.getElementById("row_o2ref").style.visibility = "visible";
+        document.getElementById("input_o2ref").setAttribute("required", "required");
     } else {
         document.getElementById("row_o2ref").style.visibility = "hidden";
+        document.getElementById("input_o2ref").removeAttribute("required");
+
     }
 }
 
@@ -144,7 +147,7 @@ function calculate(e) {
 
     if (o2 != "" && calc_o2 != "") {
         document.getElementById("output_CO_m3o2").innerHTML = Math.round(co_mgm3 * o2_ref(calc_o2, o2) * 10) / 10; // 
-        document.getElementById("output_CO_m3o2_unit").innerHTML = "mg/m<sup>3</sup> | O<sub>2ref</sub>=" + calc_o2 + "%";
+        document.getElementById("output_CO_m3o2_unit").innerHTML = "mg/m<sup>3</sup> | O<sub>2</sub>=" + calc_o2 + "%";
     } else {
         document.getElementById("output_CO_m3o2").innerHTML = "--"
     }
@@ -180,7 +183,7 @@ function calculate(e) {
     document.getElementById("output_NO_m3").innerHTML = Math.round(no_mgm3 * 10) / 10;
     if (o2 != "" && calc_o2 != "") {
         document.getElementById("output_NO_m3o2").innerHTML = Math.round(no_mgm3 * o2_ref(calc_o2, o2) * 10) / 10; // 
-        document.getElementById("output_NO_m3o2_unit").innerHTML = "mg/m<sup>3</sup> | O<sub>2ref</sub>=" + calc_o2 + "%";
+        document.getElementById("output_NO_m3o2_unit").innerHTML = "mg/m<sup>3</sup> | O<sub>2</sub>=" + calc_o2 + "%";
     } else {
         document.getElementById("output_NO_m3o2").innerHTML = "--"
     }
@@ -203,7 +206,7 @@ function calculate(e) {
     document.getElementById("output_NOx_m3").innerHTML = Math.round(nox_mgm3 * 10) / 10;
     if (o2 != "" && calc_o2 != "") {
         document.getElementById("output_NOx_m3o2").innerHTML = Math.round(nox_mgm3 * o2_ref(calc_o2, o2) * 10) / 10; // 
-        document.getElementById("output_NOx_m3o2_unit").innerHTML = "mg/m<sup>3</sup> | O<sub>2ref</sub>=" + calc_o2 + "%";
+        document.getElementById("output_NOx_m3o2_unit").innerHTML = "mg/m<sup>3</sup> | O<sub>2</sub>=" + calc_o2 + "%";
     } else {
         document.getElementById("output_NOx_m3o2").innerHTML = "--";
     }

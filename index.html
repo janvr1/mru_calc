@@ -43,18 +43,18 @@
     <section class="section">
         <div class="container">
             <div class="box">
-                <div class="columns is-variable is-5">
-                    <div class="column is-one-third">
+                <div class="columns is-variable is-5 is-desktop">
+                    <div class="column">
                         <p class="title is-4">Izmerjene vrednosti</p>
 
                         <form id="input_form">
-                            <div class="field is-horizontal">
+                            <div class="field is-horizontal" title="Vnesite izmerjeno vrednost kisika">
                                 <div class="field-label is-normal">
                                     <label class="label">O<sub>2</sub></label>
                                 </div>
                                 <div class="field-body">
                                     <div class="field has-addons">
-                                        <div class="control is-expanded">
+                                        <div class="control">
                                             <input class="input" type="number" min="0" max="20.89" id="input_O2"
                                                 step=".01" placeholder="10.00" />
                                         </div>
@@ -67,23 +67,23 @@
                                 </div>
 
                             </div>
-                            <div class="field is-horizontal">
+                            <div class="field is-horizontal" title="Vnesite izmerjeno vrednost ogljikovega monoksida">
                                 <div class="field-label is-normal">
                                     <label class="label">CO</label>
                                 </div>
                                 <div class="field-body">
                                     <div class="field has-addons">
-                                        <div class="control is-expanded">
+                                        <div class="control">
                                             <input class="input" type="number" id="input_CO" step=".1" min="0"
                                                 placeholder="500" />
                                         </div>
 
-                                        <div class="control">
+                                        <div class="control" style="max-width: 50%;">
                                             <span class="select">
                                                 <select id="unit_CO" name="unit_co" onchange="hide_o2()">
                                                     <option value="ppm">ppm</option>
                                                     <option value="mg_m3">mg/m3</option>
-                                                    <option value="mg_m3_o2">mg/m3 | O2ref</option>
+                                                    <option value="mg_m3_o2">mg/m3|O2ref</option>
                                                     <option value="mg_kwh">mg/kWh</option>
                                                 </select>
                                             </span>
@@ -91,23 +91,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="field is-horizontal">
+                            <div class="field is-horizontal" title="Vnesite izmerjeno vrednost dušikovega monoksida">
                                 <div class="field-label is-normal">
                                     <label class="label">NO</label>
                                 </div>
                                 <div class="field-body">
                                     <div class="field has-addons">
-                                        <div class="control is-expanded">
+                                        <div class="control">
                                             <input class="input" type="number" id="input_NO" step=".1" min="0"
                                                 placeholder="100" />
                                         </div>
 
-                                        <div class="control">
+                                        <div class="control" style="max-width: 50%;">
                                             <span class="select">
                                                 <select class="select" id="unit_NO" name="unit_no" onchange="hide_o2()">
                                                     <option value="ppm">ppm</option>
                                                     <option value="mg_m3">mg/m3</option>
-                                                    <option value="mg_m3_o2">mg/m3 | O2ref</option>
+                                                    <option value="mg_m3_o2">mg/m3|O2ref</option>
                                                     <option value="mg_kwh">mg/kWh</option>
                                                 </select>
                                             </span>
@@ -117,19 +117,19 @@
                             </div>
                         </form>
                     </div>
-                    <div class="column is-one-fifth">
+                    <div class="column">
                         <p class="title is-4">&nbsp</p>
-                        <div class="field is-horizontal">
+                        <div class="field is-horizontal" title="Vnesite izmerjeno temperaturo zgorevalnega zraka">
                             <div class="field-label is-normal">
                                 <label class="label">T<sub>zrak</sub></label>
                             </div>
                             <div class="field-body">
                                 <div class="field has-addons">
-                                    <div class="control is-expanded">
+                                    <div class="control">
                                         <input class="input" type="number" id="input_Tair" step=".1" placeholder="20"
                                             form="input_form" />
                                     </div>
-                                    <div class="control">
+                                    <div class="control" style="max-width: 20%;">
                                         <a class="button is-static">
                                             <b>°C</b>
                                         </a>
@@ -138,17 +138,17 @@
                             </div>
 
                         </div>
-                        <div class="field is-horizontal">
+                        <div class="field is-horizontal" title="Vensite izmerjeno temperaturo dimnih plinov">
                             <div class="field-label is-normal">
                                 <label class="label">T<sub>plin</sub></label>
                             </div>
                             <div class="field-body">
                                 <div class="field has-addons">
-                                    <div class="control is-expanded">
+                                    <div class="control">
                                         <input class="input" type="number" id="input_Tgas" step=".1" placeholder="150"
                                             form="input_form" />
                                     </div>
-                                    <div class="control">
+                                    <div class="control" style="max-width: 20%;">
                                         <a class="button is-static">
                                             <b>°C</b>
                                         </a>
@@ -157,17 +157,18 @@
                             </div>
 
                         </div>
-                        <div class="field is-horizontal" id="row_o2ref" style="visibility:hidden">
+                        <div class="field is-horizontal" id="row_o2ref" style="visibility:hidden"
+                            title="Vnesite računsko vsebnost kisika pri kateri je bila opravljena meritev">
                             <div class="field-label is-normal">
                                 <label class="label">O<sub>2,ref</sub></label>
                             </div>
                             <div class="field-body">
                                 <div class="field has-addons">
-                                    <div class="control is-expanded">
+                                    <div class="control">
                                         <input min="0" max="20.89" class="input" type="number" id="input_o2ref"
                                             placeholder="3" form="input_form" />
                                     </div>
-                                    <div class="control">
+                                    <div class="control" style="max-width: 20%;">
                                         <a class="button is-static">
                                             <b>%</b>
                                         </a>
@@ -179,7 +180,7 @@
                     <div class="column">
                         <p class="title is-4">Parametri za izračun</p>
 
-                        <div class="field is-horizontal">
+                        <div class="field is-horizontal" title="Vnesite računsko vsebnost kisika za izračune">
                             <div class="field-label is-normal">
                                 <label class="label">O<sub>2,ref</sub></label>
                             </div>
@@ -198,7 +199,7 @@
                             </div>
                         </div>
 
-                        <div class="field is-horizontal">
+                        <div class="field is-horizontal" title="Vnesite vrednost dodatka za iračun NOx iz NO">
                             <div class="field-label is-normal">
                                 <label class="label">NO<sub>x</sub> dodatek</label>
                             </div>
@@ -217,7 +218,7 @@
                             </div>
                         </div>
 
-                        <div class="field is-horizontal">
+                        <div class="field is-horizontal" title="Izberite gorivo na katerem so bile opravljene meritve">
                             <div class="field-label is-normal">
                                 <label class="label">Gorivo</label>
                             </div>
@@ -225,7 +226,8 @@
                                 <div class="field">
                                     <div class="control">
                                         <div class="select">
-                                            <select id="input_fuel" name="unit_no" form="input_form" onchange="fill_o2ref()">
+                                            <select id="input_fuel" name="unit_no" form="input_form"
+                                                onchange="fill_o2ref()">
                                                 <option value="erdgas_E">Zemeljski plin</option>
                                                 <option value="heizol_EL">Kurilno olje EL</option>
                                                 <option value="propan">Propan</option>
@@ -254,7 +256,8 @@
 
                 <div class="columns">
                     <div class="column is-one-quarter">
-                        <table class="table is-striped is-fullwidth">
+                        <table class="table is-striped is-fullwidth"
+                            title="Vsebnost ogljikovega monoksida v dimnih plinih">
                             <tbody>
                                 <tr>
                                     <th>CO</th>
@@ -262,17 +265,17 @@
                                     <td>ppm</td>
                                 </tr>
                                 <tr>
-                                    <td></td>
+                                    <th>&nbsp</th>
                                     <td id="output_CO_m3">0</td>
                                     <td>mg/m<sup>3</sup></td>
                                 </tr>
                                 <tr>
-                                    <td></td>
+                                    <th>&nbsp</th>
                                     <td id="output_CO_m3o2">0</td>
                                     <td id="output_CO_m3o2_unit">mg/m<sup>3</sup> | O<sub>2ref</sub></td>
                                 </tr>
                                 <tr>
-                                    <td></td>
+                                    <th>&nbsp</th>
                                     <td id="output_CO_kwh">0</td>
                                     <td>mg/kWh</td>
                                 </tr>
@@ -280,7 +283,8 @@
                         </table>
                     </div>
                     <div class="column is-one-quarter">
-                        <table class="table is-striped is-fullwidth">
+                        <table class="table is-striped is-fullwidth"
+                            title="Vsebnost dušikovega monoksida v dimnih plinih">
                             <tbody>
                                 <tr>
                                     <th>NO</th>
@@ -288,17 +292,17 @@
                                     <td>ppm</td>
                                 </tr>
                                 <tr>
-                                    <td></td>
+                                    <th>&nbsp</th>
                                     <td id="output_NO_m3">0</td>
                                     <td>mg/m<sup>3</sup></td>
                                 </tr>
                                 <tr>
-                                    <td></td>
+                                    <th>&nbsp</th>
                                     <td id="output_NO_m3o2">0</td>
                                     <td id="output_NO_m3o2_unit">mg/m<sup>3</sup> | O<sub>2ref</sub></td>
                                 </tr>
                                 <tr>
-                                    <td></td>
+                                    <th>&nbsp</th>
                                     <td id="output_NO_kwh">0</td>
                                     <td>mg/kWh</td>
                                 </tr>
@@ -306,7 +310,8 @@
                         </table>
                     </div>
                     <div class="column is-one-quarter">
-                        <table class="table is-striped is-fullwidth">
+                        <table class="table is-striped is-fullwidth"
+                            title="Vsebnost dušikovih oksidov NOx v dimnih plinih (izražena kot NO2)">
                             <tbody>
                                 <tr>
                                     <th>NO<sub>x</sub></th>
@@ -314,17 +319,17 @@
                                     <td>ppm</td>
                                 </tr>
                                 <tr>
-                                    <td></td>
+                                    <th>&nbsp</th>
                                     <td id="output_NOx_m3">0</td>
                                     <td>mg/m<sup>3</sup></td>
                                 </tr>
                                 <tr>
-                                    <td></td>
+                                    <th>&nbsp</th>
                                     <td id="output_NOx_m3o2">0</td>
                                     <td id="output_NOx_m3o2_unit">mg/m<sup>3</sup> | O<sub>2ref</sub></td>
                                 </tr>
                                 <tr>
-                                    <td></td>
+                                    <th>&nbsp</th>
                                     <td id="output_NOx_kwh">0</td>
                                     <td>mg/kWh</td>
                                 </tr>
@@ -334,22 +339,22 @@
                     <div class="column is-one-quarter">
                         <table class="table is-striped is-fullwidth">
                             <tbody>
-                                <tr>
+                                <tr title="Izračunana vsebnost ogljikovega dioksida v dimnih plinih">
                                     <th>CO<sub>2</sub></th>
                                     <td id="output_co2">0</td>
                                     <td>%</td>
                                 </tr>
-                                <tr>
-                                    <th>λ (lambda)</th>
+                                <tr title="Faktor presežnega zraka lambda">
+                                    <th>Lambda (λ)</th>
                                     <td id="output_lambda">0</td>
                                     <td></td>
                                 </tr>
-                                <tr>
+                                <tr title="Toplotne izgube z dimnimi plini">
                                     <th>Izgube</th>
                                     <td id="output_loss">0</td>
                                     <td>%</td>
                                 </tr>
-                                <tr>
+                                <tr title="Toplotni izkoristek kurilne naprave">
                                     <th>Izkoristek</th>
                                     <td id="output_eff">0</td>
                                     <td>%</td>
