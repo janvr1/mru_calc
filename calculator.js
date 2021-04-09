@@ -7,21 +7,48 @@ const input_form = document.getElementById("input_form");
 input_form.addEventListener("submit", calculate);
 
 const FUELS = {
-    erdgas_LL: {
-        V: 7.700,
-        H: 8.820,
-        F: 0.8730,
-        CO2max: 11.8,
+    erdgas_E: {
+        CO2max: 12.1,
+        O2bez: 3,
         A1: 0.37,
         B: 0.009,
+        V: 8.900,
+        H: 10.380,
+        F: 0.8574,
+
     },
     heizol_EL: {
-        V: 10.375,
-        H: 11.86,
-        F: 0.8748,
         CO2max: 15.4,
+        O2bez: 3,
         A1: 0.5,
         B: 0.007,
+        V: 10.375,
+        H: 11.860,
+        F: 0.8748,
+    },
+    propan: {
+        CO2max: 13.7,
+        O2bez: 3,
+        A1: 0.43,
+        B: 0.007,
+        V: 21.8,
+        H: 25.893,
+        F: 0.8419,
+    },
+    butan: {
+        CO2max: 14.1,
+        O2bez: 3,
+        A1: 0.45,
+        B: 0.007,
+        V: 28.440,
+        H: 34.392,
+        F: 0.8269,
+    },
+    holz_trocken: {
+        CO2max: 20.3,
+        O2bez: 13,
+        A1: 0.6,
+        B: 0.009,
     }
 }
 
@@ -46,6 +73,11 @@ function hide_o2() {
     } else {
         document.getElementById("row_o2ref").style.visibility = "hidden";
     }
+}
+
+function fill_o2ref() {
+    let fuel = FUELS[document.getElementById("input_fuel").value];
+    document.getElementById("calc_o2ref").value = fuel.O2bez;
 }
 
 function calculate(e) {
@@ -96,7 +128,7 @@ function calculate(e) {
         co_ppm = co;
     } else if (unit_CO == "mg_m3") {
         co_ppm = co / GASES.CO["mg_m3ppm"];
-    } else if (unit_CO == "mg_m3_o2" && inp_o2ref != "") {
+    } else if (unit_CO == "mg_m3_o2" && inp_o2ref != "" && o2 != "") {
         co_ppm = co / (GASES.CO["mg_m3ppm"] * o2_ref(inp_o2ref, o2));
     } else if (unit_CO == "mg_kwh") {
         co_ppm = co / (GASES.CO["mg_m3ppm"] * lambda(o2) * fuel["F"]);
@@ -116,7 +148,7 @@ function calculate(e) {
     } else {
         document.getElementById("output_CO_m3o2").innerHTML = "--"
     }
-    if (o2 != "") {
+    if (o2 != "" && fuel.F != null) {
         document.getElementById("output_CO_kwh").innerHTML = Math.round(mg_kwh(co_mgm3, o2, fuel.F) * 10) / 10;
     } else {
         document.getElementById("output_CO_kwh").innerHTML = "--"
@@ -133,7 +165,7 @@ function calculate(e) {
         no_ppm = no;
     } else if (unit_NO == "mg_m3") {
         no_ppm = no / GASES.NO["mg_m3ppm"];
-    } else if (unit_NO == "mg_m3_o2" && inp_o2ref != "") {
+    } else if (unit_NO == "mg_m3_o2" && inp_o2ref != "" && o2 != "") {
         no_ppm = no / (GASES.NO["mg_m3ppm"] * o2_ref(inp_o2ref, o2));
     } else if (unit_NO == "mg_kwh") {
         no_ppm = no / (GASES.NO["mg_m3ppm"] * lambda(o2) * fuel["F"]);
@@ -153,7 +185,7 @@ function calculate(e) {
         document.getElementById("output_NO_m3o2").innerHTML = "--"
     }
 
-    if (o2 != "") {
+    if (o2 != "" && fuel.F != null) {
         document.getElementById("output_NO_kwh").innerHTML = Math.round(mg_kwh(no_mgm3, o2, fuel.F) * 10) / 10;
 
     } else {
@@ -175,7 +207,7 @@ function calculate(e) {
     } else {
         document.getElementById("output_NOx_m3o2").innerHTML = "--";
     }
-    if (o2 != "") {
+    if (o2 != "" && fuel.F != null) {
         document.getElementById("output_NOx_kwh").innerHTML = Math.round(mg_kwh(no_mgm3, o2, fuel.F) * 10) / 10;
     } else {
         document.getElementById("output_NOx_kwh").innerHTML = "--";

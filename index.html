@@ -225,9 +225,12 @@
                                 <div class="field">
                                     <div class="control">
                                         <div class="select">
-                                            <select id="input_fuel" name="unit_no" form="input_form">
-                                                <option value="erdgas_LL">Zemeljski plin</option>
-                                                <option value="heizol_EL">Kurilno olje</option>
+                                            <select id="input_fuel" name="unit_no" form="input_form" onchange="fill_o2ref()">
+                                                <option value="erdgas_E">Zemeljski plin</option>
+                                                <option value="heizol_EL">Kurilno olje EL</option>
+                                                <option value="propan">Propan</option>
+                                                <option value="butan">Butan</option>
+                                                <option value="holz_trocken">Les suh</option>
                                             </select>
                                         </div>
                                     </div>
