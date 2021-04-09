@@ -42,9 +42,9 @@
 
     <section class="section">
         <div class="container">
-            <div class="columns">
-                <div class="column is-half">
-                    <div class="box" style="height:100%">
+            <div class="box">
+                <div class="columns is-variable is-5">
+                    <div class="column is-one-third">
                         <p class="title is-4">Izmerjene vrednosti</p>
 
                         <form id="input_form">
@@ -55,8 +55,8 @@
                                 <div class="field-body">
                                     <div class="field has-addons">
                                         <div class="control is-expanded">
-                                            <input class="input" type="number" min="0" max="20.89" id="input_O2" step=".01"
-                                                placeholder="10.00"></input>
+                                            <input class="input" type="number" min="0" max="20.89" id="input_O2"
+                                                step=".01" placeholder="10.00" />
                                         </div>
                                         <div class="control">
                                             <a class="button is-static">
@@ -75,7 +75,7 @@
                                     <div class="field has-addons">
                                         <div class="control is-expanded">
                                             <input class="input" type="number" id="input_CO" step=".1" min="0"
-                                                placeholder="500"></input>
+                                                placeholder="500" />
                                         </div>
 
                                         <div class="control">
@@ -99,7 +99,7 @@
                                     <div class="field has-addons">
                                         <div class="control is-expanded">
                                             <input class="input" type="number" id="input_NO" step=".1" min="0"
-                                                placeholder="100"></input>
+                                                placeholder="100" />
                                         </div>
 
                                         <div class="control">
@@ -115,30 +115,68 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="field is-horizontal" id="row_o2ref" style="visibility:hidden">
-                                <div class="field-label is-normal">
-                                    <label class="label">O<sub>2,ref</sub></label>
-                                </div>
-                                <div class="field-body">
-                                    <div class="field has-addons">
-                                        <div class="control is-expanded">
-                                            <input min="0" max="20.89" class="input" type="number" id="input_o2ref"
-                                                placeholder="3"></input>
-                                        </div>
-                                        <div class="control">
-                                            <a class="button is-static">
-                                                <b>%</b>
-                                            </a>
-                                        </div>
+                        </form>
+                    </div>
+                    <div class="column is-one-fifth">
+                        <p class="title is-4">&nbsp</p>
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">T<sub>zrak</sub></label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field has-addons">
+                                    <div class="control is-expanded">
+                                        <input class="input" type="number" id="input_Tair" step=".1" placeholder="20"
+                                            form="input_form" />
+                                    </div>
+                                    <div class="control">
+                                        <a class="button is-static">
+                                            <b>°C</b>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+
+                        </div>
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">T<sub>plin</sub></label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field has-addons">
+                                    <div class="control is-expanded">
+                                        <input class="input" type="number" id="input_Tgas" step=".1" placeholder="150"
+                                            form="input_form" />
+                                    </div>
+                                    <div class="control">
+                                        <a class="button is-static">
+                                            <b>°C</b>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="field is-horizontal" id="row_o2ref" style="visibility:hidden">
+                            <div class="field-label is-normal">
+                                <label class="label">O<sub>2,ref</sub></label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field has-addons">
+                                    <div class="control is-expanded">
+                                        <input min="0" max="20.89" class="input" type="number" id="input_o2ref"
+                                            placeholder="3" form="input_form" />
+                                    </div>
+                                    <div class="control">
+                                        <a class="button is-static">
+                                            <b>%</b>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="column is-half">
-                    <div class="box" style="height:100%">
+                    <div class="column">
                         <p class="title is-4">Parametri za izračun</p>
 
                         <div class="field is-horizontal">
@@ -147,9 +185,9 @@
                             </div>
                             <div class="field-body">
                                 <div class="field has-addons">
-                                    <div class="control is-expanded">
+                                    <div class="control">
                                         <input class="input" type="number" id="calc_o2ref" value="3" min="0" max="20.89"
-                                            form="input_form"></input>
+                                            form="input_form" />
                                     </div>
                                     <div class="control">
                                         <a class="button is-static">
@@ -166,9 +204,9 @@
                             </div>
                             <div class="field-body">
                                 <div class="field has-addons">
-                                    <div class="control is-expanded">
+                                    <div class="control">
                                         <input class="input" type="number" id="input_NOx" min="0" value="5"
-                                            form="input_form"></input>
+                                            form="input_form" />
                                     </div>
                                     <div class="control">
                                         <a class="button is-static">
@@ -203,95 +241,121 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-        </br>
-        <div class="box">
-            <p class="title is-4">Rezultati</p>
+    </section>
+    <section>
+        <div class="container">
+            <div class="box">
+                <p class="title is-4">Rezultati</p>
 
-            <div class="columns">
-                <div class="column is-one-third">
-                    <table class="table is-striped is-fullwidth">
-                        <tbody>
-                            <tr>
-                                <th>CO</th>
-                                <td id="output_CO_ppm">0</td>
-                                <td>ppm</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td id="output_CO_m3">0</td>
-                                <td>mg/m<sup>3</sup></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td id="output_CO_m3o2">0</td>
-                                <td id="output_CO_m3o2_unit">mg/m<sup>3</sup> | O<sub>2ref</sub></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td id="output_CO_kwh">0</td>
-                                <td>mg/kWh</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="columns">
+                    <div class="column is-one-quarter">
+                        <table class="table is-striped is-fullwidth">
+                            <tbody>
+                                <tr>
+                                    <th>CO</th>
+                                    <td id="output_CO_ppm">0</td>
+                                    <td>ppm</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td id="output_CO_m3">0</td>
+                                    <td>mg/m<sup>3</sup></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td id="output_CO_m3o2">0</td>
+                                    <td id="output_CO_m3o2_unit">mg/m<sup>3</sup> | O<sub>2ref</sub></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td id="output_CO_kwh">0</td>
+                                    <td>mg/kWh</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <table class="table is-striped is-fullwidth">
+                            <tbody>
+                                <tr>
+                                    <th>NO</th>
+                                    <td id="output_NO_ppm">0</td>
+                                    <td>ppm</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td id="output_NO_m3">0</td>
+                                    <td>mg/m<sup>3</sup></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td id="output_NO_m3o2">0</td>
+                                    <td id="output_NO_m3o2_unit">mg/m<sup>3</sup> | O<sub>2ref</sub></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td id="output_NO_kwh">0</td>
+                                    <td>mg/kWh</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <table class="table is-striped is-fullwidth">
+                            <tbody>
+                                <tr>
+                                    <th>NO<sub>x</sub></th>
+                                    <td id="output_NOx_ppm">0</td>
+                                    <td>ppm</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td id="output_NOx_m3">0</td>
+                                    <td>mg/m<sup>3</sup></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td id="output_NOx_m3o2">0</td>
+                                    <td id="output_NOx_m3o2_unit">mg/m<sup>3</sup> | O<sub>2ref</sub></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td id="output_NOx_kwh">0</td>
+                                    <td>mg/kWh</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <table class="table is-striped is-fullwidth">
+                            <tbody>
+                                <tr>
+                                    <th>CO<sub>2</sub></th>
+                                    <td id="output_co2">0</td>
+                                    <td>%</td>
+                                </tr>
+                                <tr>
+                                    <th>λ (lambda)</th>
+                                    <td id="output_lambda">0</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>Izgube</th>
+                                    <td id="output_loss">0</td>
+                                    <td>%</td>
+                                </tr>
+                                <tr>
+                                    <th>Izkoristek</th>
+                                    <td id="output_eff">0</td>
+                                    <td>%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="column is-one-third">
-                    <table class="table is-striped is-fullwidth">
-                        <tbody>
-                            <tr>
-                                <th>NO</th>
-                                <td id="output_NO_ppm">0</td>
-                                <td>ppm</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td id="output_NO_m3">0</td>
-                                <td>mg/m<sup>3</sup></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td id="output_NO_m3o2">0</td>
-                                <td id="output_NO_m3o2_unit">mg/m<sup>3</sup> | O<sub>2ref</sub></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td id="output_NO_kwh">0</td>
-                                <td>mg/kWh</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="column is-one-third">
-                    <table class="table is-striped is-fullwidth">
-                        <tbody>
-                            <tr>
-                                <th>NO<sub>x</sub></th>
-                                <td id="output_NOx_ppm">0</td>
-                                <td>ppm</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td id="output_NOx_m3">0</td>
-                                <td>mg/m<sup>3</sup></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td id="output_NOx_m3o2">0</td>
-                                <td id="output_NOx_m3o2_unit">mg/m<sup>3</sup> | O<sub>2ref</sub></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td id="output_NOx_kwh">0</td>
-                                <td>mg/kWh</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
             </div>
-        </div>
     </section>
     <script src="common.js"></script>
     <script src="calculator.js"></script>
