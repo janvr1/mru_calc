@@ -208,7 +208,7 @@ function calculate(e) {
         document.getElementById("output_NOx_m3o2").innerHTML = "--";
     }
     if (o2 != "" && fuel.F != null) {
-        document.getElementById("output_NOx_kwh").innerHTML = Math.round(mg_kwh(no_mgm3, o2, fuel.F) * 10) / 10;
+        document.getElementById("output_NOx_kwh").innerHTML = Math.round(mg_kwh(nox_mgm3, o2, fuel.F) * 10) / 10;
     } else {
         document.getElementById("output_NOx_kwh").innerHTML = "--";
     }
