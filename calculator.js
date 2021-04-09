@@ -210,13 +210,14 @@ function calculate(e) {
 
     }
     // Izračun NOx
-    nox_factor = 1 + document.getElementById("input_NOx").value / 100;
+    let nox_add = document.getElementById("input_NOx").value;
+    nox_factor = 1 + nox_add / 100;
     var nox_ppm = no_ppm * nox_factor;
 
     console.log("NOx_ppm: " + nox_ppm);
 
     var nox_mgm3 = mg_m3(nox_ppm, GASES.NO2);
-    if (no != "") {
+    if (no != "" && nox_add != "") {
         document.getElementById("output_NOx_ppm").innerHTML = Math.round(nox_ppm * 10) / 10;
         document.getElementById("output_NOx_m3").innerHTML = Math.round(nox_mgm3 * 10) / 10;
 
@@ -225,13 +226,13 @@ function calculate(e) {
         document.getElementById("output_NOx_m3").innerHTML = "--";
     }
 
-    if (o2 != "" && calc_o2 != "" && no != "") {
+    if (o2 != "" && calc_o2 != "" && no != "" && nox_add != "") {
         document.getElementById("output_NOx_m3o2").innerHTML = Math.round(nox_mgm3 * o2_ref(calc_o2, o2) * 10) / 10; // 
         document.getElementById("output_NOx_m3o2_unit").innerHTML = "mg/m<sup>3</sup> | O<sub>2</sub>=" + calc_o2 + "%";
     } else {
         document.getElementById("output_NOx_m3o2").innerHTML = "--";
     }
-    if (o2 != "" && fuel.F != null && no != "") {
+    if (o2 != "" && fuel.F != null && no != "" && nox_add != "") {
         document.getElementById("output_NOx_kwh").innerHTML = Math.round(mg_kwh(nox_mgm3, o2, fuel.F) * 10) / 10;
     } else {
         document.getElementById("output_NOx_kwh").innerHTML = "--";
