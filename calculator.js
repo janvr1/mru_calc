@@ -67,14 +67,22 @@ const GASES = {
     }
 }
 
-function hide_o2() {
+function hide_o2ref() {
     if (document.getElementById("unit_CO").value == "mg_m3_o2" || document.getElementById("unit_NO").value == "mg_m3_o2") {
         document.getElementById("row_o2ref").style.visibility = "visible";
         document.getElementById("input_o2ref").setAttribute("required", "required");
+        document.getElementById("input_O2").setAttribute("required", "required");
     } else {
         document.getElementById("row_o2ref").style.visibility = "hidden";
         document.getElementById("input_o2ref").removeAttribute("required");
+        document.getElementById("input_O2").removeAttribute("required", "required");
+    }
 
+    if (document.getElementById("unit_CO").value == "mg_kwh" || document.getElementById("unit_NO").value == "mg_kwh") {
+        document.getElementById("input_O2").setAttribute("required", "required");
+
+    } else {
+        document.getElementById("input_O2").removeAttribute("required", "required");
     }
 }
 
