@@ -45,7 +45,7 @@
         <div class="container">
             <div class="box">
                 <div class="columns is-variable is-5 is-desktop">
-                    <div class="column">
+                    <div class="column" style="padding-right: 40pt;">
                         <p class="title is-4">Izmerjene vrednosti</p>
 
                         <form id="input_form">
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="field-body">
                                     <div class="field has-addons">
-                                        <div class="control">
+                                        <div class="control is-expanded">
                                             <input class="input" type="number" min="0" max="20.89" id="input_O2"
                                                 step=".01" placeholder="10.00" />
                                         </div>
@@ -74,14 +74,14 @@
                                 </div>
                                 <div class="field-body">
                                     <div class="field has-addons">
-                                        <div class="control">
+                                        <div class="control is-expanded">
                                             <input class="input" type="number" id="input_CO" step=".1" min="0"
                                                 placeholder="500" />
                                         </div>
 
                                         <div class="control" style="max-width: 50%;">
                                             <span class="select">
-                                                <select id="unit_CO" name="unit_co" onchange="hide_o2()">
+                                                <select id="unit_CO" name="unit_co" onchange="hide_o2ref()">
                                                     <option value="ppm">ppm</option>
                                                     <option value="mg_m3">mg/m3</option>
                                                     <option value="mg_m3_o2">mg/m3|O2ref</option>
@@ -98,14 +98,14 @@
                                 </div>
                                 <div class="field-body">
                                     <div class="field has-addons">
-                                        <div class="control">
+                                        <div class="control is-expanded">
                                             <input class="input" type="number" id="input_NO" step=".1" min="0"
                                                 placeholder="100" />
                                         </div>
 
                                         <div class="control" style="max-width: 50%;">
                                             <span class="select">
-                                                <select class="select" id="unit_NO" name="unit_no" onchange="hide_o2()">
+                                                <select class="select" id="unit_NO" name="unit_no" onchange="hide_o2ref()">
                                                     <option value="ppm">ppm</option>
                                                     <option value="mg_m3">mg/m3</option>
                                                     <option value="mg_m3_o2">mg/m3|O2ref</option>
@@ -118,15 +118,20 @@
                             </div>
                         </form>
                     </div>
+<<<<<<< HEAD
                     <div class="column">
                         <p class="title is-4">&nbsp;</p>
+=======
+                    <div class="column" style="padding-right: 40pt;">
+                        <p class="title is-4">&nbsp</p>
+>>>>>>> efd3f301e526628cf97d0e68b467c2a4d0c0f20b
                         <div class="field is-horizontal" title="Vnesite izmerjeno temperaturo zgorevalnega zraka">
                             <div class="field-label is-normal">
                                 <label class="label">T<sub>zrak</sub></label>
                             </div>
                             <div class="field-body">
                                 <div class="field has-addons">
-                                    <div class="control">
+                                    <div class="control is-expanded">
                                         <input class="input" type="number" id="input_Tair" step=".1" placeholder="20"
                                             form="input_form" />
                                     </div>
@@ -145,7 +150,7 @@
                             </div>
                             <div class="field-body">
                                 <div class="field has-addons">
-                                    <div class="control">
+                                    <div class="control is-expanded">
                                         <input class="input" type="number" id="input_Tgas" step=".1" placeholder="150"
                                             form="input_form" />
                                     </div>
@@ -165,7 +170,7 @@
                             </div>
                             <div class="field-body">
                                 <div class="field has-addons">
-                                    <div class="control">
+                                    <div class="control is-expanded">
                                         <input min="0" max="20.89" class="input" type="number" id="input_o2ref"
                                             placeholder="3" form="input_form" />
                                     </div>
@@ -178,16 +183,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="column">
+                    <div class="column" style="padding-right: 40pt;">
                         <p class="title is-4">Parametri za izračun</p>
 
-                        <div class="field is-horizontal" title="Vnesite računsko vsebnost kisika za izračune">
+                        <div class="field is-horizontal"  title="Vnesite računsko vsebnost kisika za izračune">
                             <div class="field-label is-normal">
                                 <label class="label">O<sub>2,ref</sub></label>
                             </div>
                             <div class="field-body">
                                 <div class="field has-addons">
-                                    <div class="control">
+                                    <div class="control is-expanded">
                                         <input class="input" type="number" id="calc_o2ref" value="3" min="0" max="20.89"
                                             form="input_form" />
                                     </div>
@@ -206,7 +211,7 @@
                             </div>
                             <div class="field-body">
                                 <div class="field has-addons">
-                                    <div class="control">
+                                    <div class="control is-expanded">
                                         <input class="input" type="number" id="input_NOx" min="0" value="5"
                                             form="input_form" />
                                     </div>
