@@ -1,4 +1,4 @@
-const O2_MAX = 20.9; // maximum oxygen in %
+const O2_MAX = 20.95; // maximum oxygen in %
 const p_n = 101.3; // absolute pressure in kPa
 const T_n = 273; // temperature in Kelvin
 const R = 8.314 // gas constant in m3*Pa/(mol*K)
