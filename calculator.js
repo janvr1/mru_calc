@@ -49,6 +49,12 @@ const FUELS = {
         O2bez: 13,
         A1: 0.6,
         B: 0.009,
+    },
+    pellets: {
+        CO2max: 20.3,
+        O2bez: 13,
+        A1: 0.74,
+        B: 0.0
     }
 }
 
