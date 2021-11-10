@@ -5,6 +5,10 @@
     <title>MRU kalkulator
     </title>
     <meta charset="utf-8">
+    <meta name="author" content="Jan Vrhovec">
+    <meta name="description" content="Kalkulator emisij dimnih plinov">
+    <meta name="keywords"
+        content="kalkulator,emisije,analizatorji,dimni,plini,ppm,mg/m3,mg/kwh,pretvorbe,zgorevanje,lambda,CO2,izgube">
     <link rel="stylesheet" href="bulma.min.css">
     <link href="favicon.ico" rel="icon" type="image/x-icon" />
 </head>
@@ -47,10 +51,12 @@
             <script id="MathJax-script" async
                 src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
             <h1 class="title">1. Merske enote ppm, %, mg/m3, mg/kWh</h1>
-            Analizator dimnih plinov izmeri koncentracijo določene komponente plina kot volumenski delež v (ppm ali %,
-            1% = 10000 ppm). Osnova za pretvorbo v druge enote je t.i. splošna plinska enačba:
-            \[p \cdot V= { m \over M } \cdot R \cdot T\]
-            kjer je:
+            <p>
+                Analizator dimnih plinov izmeri koncentracijo določene komponente plina kot volumenski delež v (ppm ali
+                %,
+                1% = 10000 ppm). Osnova za pretvorbo v druge enote je t.i. splošna plinska enačba:
+                \[p \cdot V= { m \over M } \cdot R \cdot T\]
+                kjer je:
             <div class="content">
                 <ul>
                     <li>p - tlak plina</li>
@@ -60,28 +66,46 @@
                     <li>T – temperatura</li>
                 </ul>
             </div>
+
             Iz te enačbe lahko izrazimo gostoto plina v mg/m3:
             \[ { m [mg] \over V [m^3] } = { p [Pa] \cdot M [{mg \over mol}] \over R [ {J \over mol \cdot K}] \cdot T [K]
             } \]
             Masno koncentracijo v \(mg \over m^3\) lahko nato izračunamo po sledeči enačbi:
             \[ C [{mg \over m^3}] = {C [ppm] \over 10^6} \cdot { p [Pa] \cdot M [{mg \over mol}] \over R [ {J \over mol
             \cdot K}] \cdot T [K] } \]
-            Preračuni se opravljajo pri normnih pogojih tlaka in temperature, ki znašajo: \(p = 1013\ mbar = 101.3\
+            Preračuni se opravljajo pri normnih pogojih tlaka in temperature, ki znašajo: \(p = 1013,25\ mbar = 101,325\
             kPa\) in \(T = 0\ °C = 273,15\ K \). Vrednost plinske konstante znaša \(R = 8.314\ {J \over mol \cdot K}\).
             Če v enačbo vstavimo še molsko maso ogljikovega monoksida (CO), ki znaša \(M=28,01\ [{g \over mol}] = 28010
             [{mg \over mol}]\) dobimo:
-            \[ C [{mg \over m^3}] = {C [ppm] \over 10^6} \cdot { 101300\ Pa \cdot 28010\ {mg \over mol} \over 8,314\ {J
+            \[ C [{mg \over m^3}] = {C [ppm] \over 10^6} \cdot { 101325\ Pa \cdot 28010\ {mg \over mol} \over 8,314\ {J
             \over mol \cdot K} \cdot 273,15\ K } = C [ppm] \cdot 1,249\ \ {\mathsf (ogljikov\ monoksid)} \]
             Iz enačbe je razvidno, da pretvorbo iz \(ppm\) v \(mg \over m^3 \) lahko opravimo preposto z množenjem s
             konstantnim faktorjem. Za ogljikov monoksid ta faktor znaša 1,249.
+            </p>
             <br />
             <br />
-            <h2 class="subtitle">1.1 Preračuni na referenčno vrednost kisika in pretvorba v mg/kWh</h2>
-            Če je pri zgorevanju prisotnega več zraka, kot je potrebno pride do "redčenja" dimnih plinov - zaradi tega
-            je poterben preračun izmerjene vrednosti na referenčno vrednost kisika:
-            \[ C [ {mg \over m^3} | O_{2,ref} ] = C [ {mg \over m^3}] \cdot { O_{2,max} - O_{2,ref} \over O_{2,max} -
-            O_2} \]
-            kjer je:
+            <h2 class="subtitle">1.1 Preračun NO v NO<sub>x</sub></h2>
+            <p>
+                Pri meritvah na malih kurilnih napravah se direknto meri le koncentracija dušikovega oksida NO.
+                Koncentracija vseh dušikovih oksidov NO<sub>x</sub> pa se nato izračuna po sledeči enačbi:
+                \[ NO_x = NO \cdot 1,05 \]
+                Ker se plin dušikov oksid (NO) ob izpostavljenosti UV svetlobi pretvori v dušikov dioksid
+                (NO<sub>2</sub>) se za pretvorbo v masno koncentracijo uporablja molska masa NO<sub>2</sub>: \(M =
+                46,0055 [{g \over
+                mol}] = 46005,5 [{mg \over mol}]\). Faktor za
+                pretvorbo v masno koncentracijo za dušikove okside je tako:
+                \[ NO_x [{mg \over m^3}] = NO_x [ppm] \cdot 2,053 \]
+            </p>
+            <br />
+            <br />
+            <h2 class="subtitle">1.2 Preračuni na referenčno vrednost kisika in pretvorba v mg/kWh</h2>
+            <p>Če je pri zgorevanju prisotnega več zraka, kot je potrebno pride do "redčenja" dimnih plinov - zaradi
+                tega
+                je poterben preračun izmerjene vrednosti na referenčno vrednost kisika:
+                \[ C [ {mg \over m^3} | O_{2,ref} ] = C [ {mg \over m^3}] \cdot { O_{2,max} - O_{2,ref} \over O_{2,max}
+                -
+                O_2} \]
+                kjer je:
             <div class="content">
                 <ul>
                     <li> O<sub>2,ref</sub> - referenčba vsebnost kisika (3 % za tekoča in plinasta goriva, 13 % za trdna
@@ -91,22 +115,25 @@
                     <li> O<sub>2</sub> – izmerjena vrednost kisika</li>
                 </ul>
             </div>
-            Za novejše kurilne naprave je potreben tudi izračun emisij v enoti mg/kWh (miligram na kilovatno uro). Ta
-            izračun poteka po enačbi:
-            \[ C [ {mg \over m^3} |O_{2,ref} ] = C [ {mg \over m^3}] \cdot { O_{2,max} \over O_{2,max} - O_2} \cdot
-            {V_{dp} \over H_{i} }\]
-            kjer je:
+            </p>
+            <p>
+                Za novejše kurilne naprave je potreben tudi izračun emisij v enoti mg/kWh (miligram na kilovatno uro).
+                Ta izračun poteka po enačbi:
+                \[ C [ {mg \over kWh} ] = C [ {mg \over m^3}] \cdot { O_{2,max} \over O_{2,max} - O_2} \cdot {V_{d,s}
+                \over
+                H_{i} }\]
+                kjer je:
             <div class="content">
                 <ul>
-                    <li> V<sub>dp</sub> - Volumen dimnih plinov, ki nastanej o pri zgorevanju 1 enote goriva</li>
+                    <li> V<sub>d,s</sub> - Volumen suhih dimnih plinov, ki nastanejo pri zgorevanju 1 enote goriva</li>
                     <li>H<sub>i</sub> - Spodnja kurilna vrednost goriva</li>
                 </ul>
             </div>
-            <table class="table is-striped">
+            <table class="table is-striped is-centered" style="margin-left: auto; margin-right: auto;">
                 <tr>
                     <th>Gorivo</th>
-                    <th>V<sub>dp</sub></th>
-                    <th>Hi</th>
+                    <th>V<sub>d,s</sub></th>
+                    <th>H<sub>i</sub></th>
                 </tr>
                 <tr>
                     <td>Zemeljski plin</td>
@@ -118,9 +145,141 @@
                     <td>10,375 \(m^3 \over kg \)</td>
                     <td>11,86 \( kWh \over kg \)</td>
                 </tr>
+                <tr>
+                    <td>Propan</td>
+                    <td>21,8 \(m^3 \over m^3 \)</td>
+                    <td>25,893 \( kWh \over m^3 \)</td>
+                </tr>
+                <tr>
+                    <td>Butan</td>
+                    <td>28,44 \(m^3 \over m^3 \)</td>
+                    <td>34,392 \( kWh \over m^3 \)</td>
+                </tr>
+                <tr>
+                    <td>Les suh</td>
+                    <td> / </td>
+                    <td> / </td>
+                </tr>
+                <tr>
+                    <td>Peleti</td>
+                    <td> / </td>
+                    <td> / </td>
+                </tr>
             </table>
-            <h1 class="title">2. Drug parametri zgorevanja CO2, izkoristek, lambda</h1>
-            <h2 class="subtitle">CO2</h2>
+            </p>
+            <h1 class="title">2. Drugi parametri zgorevanja: lambda, izgube, CO<sub>2</sub></h1>
+            <h2 class="subtitle">2.1 Lambda</h2>
+            <p>
+                Eden izmed najpomembnejših parametrov zgorevanja je faktor lambda \( \lambda \) (razmernik zraka).
+                Lambda
+                nam pove razmerje med teoretično minimalno poterbno količino zraka, ki je potrebna za popolno zgorevanja
+                in
+                dejansko količino zraka, ki jo dovajamo v kurišče. Izračuna se po sledeči enačbi:
+                \[ \lambda = {O_{2,max} \over O_{2,max} - O_2 } \]
+                kjer je:
+            <div class="content">
+                <ul>
+                    <li>O<sub>2,max</sub> - maksimalna vsebnost kisika (= vsebnost kisika v okoliškem zraku = 20,95 %)
+                    </li>
+                    <li> O<sub>2</sub> – izmerjena vrednost kisika</li>
+                </ul>
+            </div>
+            Faktor lambda lahko zavzame vse vrednosti višje ali enake 1. Če je vrednost lambde enaka 1 to pomeni, da
+            v kurišče dovajamo ravno pravšnjo količino zraka za popolno zgorevanje. Če pa je vrednost lambde 2 to
+            pomeni, da v kurišče dovajamo 2-kratno količino zraka, glede na minimalno potrebno.
+            V teoriji bi si želeli pri vsaki kurilni napravi dosežti vrednost lambde 1, saj so takrat izgube
+            najnižje, vendar je zaradi
+            spreminjajočih se okoliških razmer priporočeno v tem faktorju imeti nekoliko "rezerve". Priporočeno
+            vrednost lambde določi proizvajalec peči.
+            </p>
+            <br />
+            <br />
+            <h2 class="subtitle">2.2 Izgube</h2>
+            <p>
+                Toplotne izgube nam povejo količino energije, ki je bila izgubljena v okolje preko dimnih plinov. Pri
+                zgorevanju nastaja vroč dimni plin, toplotni izmenjevalnik v kurilni napravi nato poskuša ujeti čimvečjo
+                količino te toplote, ker pa nobena naprava ni idealna se delež te toplote tudi izgubi preko dimnih
+                plinov. Ta delež izračunamo s pomočjo empirične "Siegertove" enačbe:
+                \[ Izgube [\%] = ( T_{plin} - T_{zrak} ) \cdot ({ A_2 \over O_{2,max} - O_2} + B ) \]
+                kjer je:
+            <div class="content">
+                <ul>
+                    <li> T<sub>plin</sub> - temperatura dimnih plinov</li>
+                    <li>T<sub>zrak</sub> - temperatura zgorevalnega zraka</li>
+                    <li>O<sub>2,max</sub> - maksimalna vsebnost kisika (= vsebnost kisika v okoliškem zraku = 20,95 %)
+                    </li>
+                    <li> O<sub>2</sub> – izmerjena vrednost kisika</li>
+                    <li>A<sub>2</sub>, B - Siegertovi faktorji goriva</li>
+                </ul>
+            </div>
+            </p>
+            <br />
+            <br />
+            <h2 class="subtitle">2.3 Ogljikov dioksid CO<sub>2</sub></h2>
+            <p>
+                Količina CO<sub>2</sub> v dimnih plinih je direktno odvisna od količine kisika v
+                dimnih plinov in od uporabljenega goriva. Izračuna se po enačbi:
+                \[ CO_2 [\%] = CO_{2,max} \cdot (1-{O_2 \over O_{2,max} } ) \]
+                kjer je:
+            <div class="content">
+                <ul>
+                    <li> CO<sub>2</sub> - najvišja možna količina CO<sub>2</sub>, ki lahko nastane pri zgorevanju
+                        izbranega goriva</li>
+                    <li>O<sub>2,max</sub> - maksimalna vsebnost kisika (= vsebnost kisika v okoliškem zraku = 20,95 %)
+                    </li>
+                    <li> O<sub>2</sub> – izmerjena vrednost kisika</li>
+                </ul>
+            </div>
+            </p>
+            <br />
+            <br />
+            <h2 class="subtitle">2.4 Faktorji goriv</h2>
+            <table class="table is-striped is-centered" style="margin-left: auto; margin-right: auto;">
+                <tr>
+                    <th>Gorivo</th>
+                    <th>A<sub>1</sub></th>
+                    <th>B</th>
+                    <th>CO<sub>2,max</sub></th>
+                </tr>
+                <tr>
+                    <td>Zemeljski plin</td>
+                    <td>0,37</td>
+                    <td>0,009</td>
+                    <td>12,1 %</td>
+                </tr>
+                <tr>
+                    <td>Kurilno olje</td>
+                    <td>0,50</td>
+                    <td>0,007</td>
+                    <td>15,4 %</td>
+                </tr>
+                <tr>
+                    <td>Propan</td>
+                    <td>0,43</td>
+                    <td>0,007</td>
+                    <td>13,7</td>
+                </tr>
+                <tr>
+                    <td>Butan</td>
+                    <td>0,45</td>
+                    <td>0,007</td>
+                    <td>14,1 %</td>
+                </tr>
+                <tr>
+                    <td>Les suh</td>
+                    <td>0,60</td>
+                    <td>0,009</td>
+                    <td>20,3 %</td>
+                </tr>
+                <tr>
+                    <td>Peleti</td>
+                    <td>0,74</td>
+                    <td>0,0</td>
+                    <td>20,3 %</td>
+                </tr>
+            </table>
+            <p>Faktor A<sub>2</sub> se izračuna po enačbi:
+                \[A_2 = {O_{2,max} \cdot A_1 \over CO_{2,max} }\]</p>
         </div>
     </section>
     <script src="common.js"></script>
