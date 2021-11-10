@@ -43,7 +43,31 @@
 
     <section class="section">
         <div class="container">
-            V izdelavi...
+            <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+            <script id="MathJax-script" async
+                src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+            <h1 class="title">1. Merske enote ppm, %, mg/m3, mg/kWh</h1>
+            Analizator dimnih plinov izmeri koncentracijo določene komponente plina kot volumenski delež v (ppm ali %,
+            1% = 10000 ppm). Osnova za pretvorbo v druge enote je t.i. splošna plinska enačba:
+            \[p \cdot V= { m \over M } \cdot R \cdot T\]
+            kjer je:
+            <div class="content">
+                <ul>
+                    <li>p - tlak plina</li>
+                    <li>V – volumen</li>
+                    <li> M – molska masa</li>
+                    <li>R – splošna plinska konstanta</li>
+                    <li>T – temperatura</li>
+                </ul>
+            </div>
+            Iz te enačbe lahko izrazimo gostoto plina v mg/m3:
+            \[ { m [mg] \over V [m^3] } = { p [Pa] \cdot M [{mg \over mol}] \over R [ {J \over mol \cdot K}] \cdot T [K] } \]
+            Masno koncentracijo v \(mg \over m^3\) lahko nato izračunamo po sledeči enačbi:
+            \[ C [{mg \over m^3}] = {C [ppm] \over 10^6} \cdot { p [Pa] \cdot M [{mg \over mol}] \over R [ {J \over mol \cdot K}] \cdot T [K] } \]
+            Preračuni se opravljajo pri normnih pogojih tlaka in temperature, ki znašajo: \(p = 1013\ mbar = 101.3\ kPa\) in \(T = 0\ °C = 273,15\ K \). Vrednost plinske konstante znaša \(R = 8.314\ {J \over mol \cdot K}\).
+            Če v enačbo vstavimo še molsko maso ogljikovega monoksida (CO), ki znaša \(M=28,01\ [{g \over mol}] = 28010 [{mg \over mol}]\) dobimo:
+            \[ C [{mg \over m^3}] = C [ppm] \cdot 1,249\ \ {\mathsf (ogljikov\ monoksid)} \]
+
         </div>
     </section>
     <script src="common.js"></script>
