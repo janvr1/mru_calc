@@ -61,13 +61,66 @@
                 </ul>
             </div>
             Iz te enačbe lahko izrazimo gostoto plina v mg/m3:
-            \[ { m [mg] \over V [m^3] } = { p [Pa] \cdot M [{mg \over mol}] \over R [ {J \over mol \cdot K}] \cdot T [K] } \]
+            \[ { m [mg] \over V [m^3] } = { p [Pa] \cdot M [{mg \over mol}] \over R [ {J \over mol \cdot K}] \cdot T [K]
+            } \]
             Masno koncentracijo v \(mg \over m^3\) lahko nato izračunamo po sledeči enačbi:
-            \[ C [{mg \over m^3}] = {C [ppm] \over 10^6} \cdot { p [Pa] \cdot M [{mg \over mol}] \over R [ {J \over mol \cdot K}] \cdot T [K] } \]
-            Preračuni se opravljajo pri normnih pogojih tlaka in temperature, ki znašajo: \(p = 1013\ mbar = 101.3\ kPa\) in \(T = 0\ °C = 273,15\ K \). Vrednost plinske konstante znaša \(R = 8.314\ {J \over mol \cdot K}\).
-            Če v enačbo vstavimo še molsko maso ogljikovega monoksida (CO), ki znaša \(M=28,01\ [{g \over mol}] = 28010 [{mg \over mol}]\) dobimo:
-            \[ C [{mg \over m^3}] = C [ppm] \cdot 1,249\ \ {\mathsf (ogljikov\ monoksid)} \]
-
+            \[ C [{mg \over m^3}] = {C [ppm] \over 10^6} \cdot { p [Pa] \cdot M [{mg \over mol}] \over R [ {J \over mol
+            \cdot K}] \cdot T [K] } \]
+            Preračuni se opravljajo pri normnih pogojih tlaka in temperature, ki znašajo: \(p = 1013\ mbar = 101.3\
+            kPa\) in \(T = 0\ °C = 273,15\ K \). Vrednost plinske konstante znaša \(R = 8.314\ {J \over mol \cdot K}\).
+            Če v enačbo vstavimo še molsko maso ogljikovega monoksida (CO), ki znaša \(M=28,01\ [{g \over mol}] = 28010
+            [{mg \over mol}]\) dobimo:
+            \[ C [{mg \over m^3}] = {C [ppm] \over 10^6} \cdot { 101300\ Pa \cdot 28010\ {mg \over mol} \over 8,314\ {J
+            \over mol \cdot K} \cdot 273,15\ K } = C [ppm] \cdot 1,249\ \ {\mathsf (ogljikov\ monoksid)} \]
+            Iz enačbe je razvidno, da pretvorbo iz \(ppm\) v \(mg \over m^3 \) lahko opravimo preposto z množenjem s
+            konstantnim faktorjem. Za ogljikov monoksid ta faktor znaša 1,249.
+            <br />
+            <br />
+            <h2 class="subtitle">1.1 Preračuni na referenčno vrednost kisika in pretvorba v mg/kWh</h2>
+            Če je pri zgorevanju prisotnega več zraka, kot je potrebno pride do "redčenja" dimnih plinov - zaradi tega
+            je poterben preračun izmerjene vrednosti na referenčno vrednost kisika:
+            \[ C [ {mg \over m^3} | O_{2,ref} ] = C [ {mg \over m^3}] \cdot { O_{2,max} - O_{2,ref} \over O_{2,max} -
+            O_2} \]
+            kjer je:
+            <div class="content">
+                <ul>
+                    <li> O<sub>2,ref</sub> - referenčba vsebnost kisika (3 % za tekoča in plinasta goriva, 13 % za trdna
+                        goriva</li>
+                    <li>O<sub>2,max</sub> - maksimalna vsebnost kisika (= vsebnost kisika v okoliškem zraku = 20,95 %)
+                    </li>
+                    <li> O<sub>2</sub> – izmerjena vrednost kisika</li>
+                </ul>
+            </div>
+            Za novejše kurilne naprave je potreben tudi izračun emisij v enoti mg/kWh (miligram na kilovatno uro). Ta
+            izračun poteka po enačbi:
+            \[ C [ {mg \over m^3} |O_{2,ref} ] = C [ {mg \over m^3}] \cdot { O_{2,max} \over O_{2,max} - O_2} \cdot
+            {V_{dp} \over H_{i} }\]
+            kjer je:
+            <div class="content">
+                <ul>
+                    <li> V<sub>dp</sub> - Volumen dimnih plinov, ki nastanej o pri zgorevanju 1 enote goriva</li>
+                    <li>H<sub>i</sub> - Spodnja kurilna vrednost goriva</li>
+                </ul>
+            </div>
+            <table class="table is-striped">
+                <tr>
+                    <th>Gorivo</th>
+                    <th>V<sub>dp</sub></th>
+                    <th>Hi</th>
+                </tr>
+                <tr>
+                    <td>Zemeljski plin</td>
+                    <td>8,9 \(m^3 \over m^3 \)</td>
+                    <td>10,38 \( kWh \over m^3 \)</td>
+                </tr>
+                <tr>
+                    <td>Kurilno olje</td>
+                    <td>10,375 \(m^3 \over kg \)</td>
+                    <td>11,86 \( kWh \over kg \)</td>
+                </tr>
+            </table>
+            <h1 class="title">2. Drug parametri zgorevanja CO2, izkoristek, lambda</h1>
+            <h2 class="subtitle">CO2</h2>
         </div>
     </section>
     <script src="common.js"></script>
