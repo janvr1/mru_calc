@@ -67,18 +67,21 @@
                 </ul>
             </div>
 
-            Iz te enačbe lahko izrazimo gostoto plina v mg/m3:
-            \[ { m [mg] \over V [m^3] } = { p [Pa] \cdot M [{mg \over mol}] \over R [ {J \over mol \cdot K}] \cdot T [K]
+            Iz te enačbe lahko izrazimo gostoto plina v \(mg \over m^3\):
+            \[ { m \left[mg\right] \over V \left[m^3\right] } = { p \left[Pa\right] \cdot M \left[{mg \over mol}\right]
+            \over R \left[ {J \over mol \cdot K}\right] \cdot T \left[K\right]
             } \]
             Masno koncentracijo v \(mg \over m^3\) lahko nato izračunamo po sledeči enačbi:
-            \[ C [{mg \over m^3}] = {C [ppm] \over 10^6} \cdot { p [Pa] \cdot M [{mg \over mol}] \over R [ {J \over mol
-            \cdot K}] \cdot T [K] } \]
+            \[ C \left[{mg \over m^3}\right] = {C \left[ppm\right] \over 10^6} \cdot { p \left[Pa\right] \cdot M
+            \left[{mg \over mol}\right] \over R \left[ {J \over mol
+            \cdot K}\right] \cdot T \left[K\right] } \]
             Preračuni se opravljajo pri normnih pogojih tlaka in temperature, ki znašajo: \(p = 1013,25\ mbar = 101,325\
             kPa\) in \(T = 0\ °C = 273,15\ K \). Vrednost plinske konstante znaša \(R = 8.3145\ {J \over mol \cdot K}\).
-            Če v enačbo vstavimo še molsko maso ogljikovega monoksida (CO), ki znaša \(M=28,01\ [{g \over mol}] = 28010
-            [{mg \over mol}]\) dobimo:
-            \[ C [{mg \over m^3}] = {C [ppm] \over 10^6} \cdot { 101325\ Pa \cdot 28010\ {mg \over mol} \over 8,3145\ {J
-            \over mol \cdot K} \cdot 273,15\ K } = C [ppm] \cdot 1,249\ \ {\mathsf (ogljikov\ monoksid)} \]
+            Če v enačbo vstavimo še molsko maso ogljikovega monoksida (CO), ki znaša \(M=28,01\ {g \over mol} = 28010
+            {mg \over mol}\) dobimo:
+            \[ C \left[{mg \over m^3}\right] = {C \left[ppm\right] \over 10^6} \cdot { 101325\ Pa \cdot 28010\ {mg \over
+            mol} \over 8,3145\ {J
+            \over mol \cdot K} \cdot 273,15\ K } = C \left[ppm\right] \cdot 1,249\ \ {\mathsf (ogljikov\ monoksid)} \]
             Iz enačbe je razvidno, da pretvorbo iz \(ppm\) v \(mg \over m^3 \) lahko opravimo preposto z množenjem s
             konstantnim faktorjem. Za ogljikov monoksid ta faktor znaša 1,249.
             </p>
@@ -91,10 +94,10 @@
                 \[ NO_x = NO \cdot 1,05 \]
                 Ker se plin dušikov oksid (NO) ob izpostavljenosti UV svetlobi pretvori v dušikov dioksid
                 (NO<sub>2</sub>) se za pretvorbo v masno koncentracijo uporablja molska masa NO<sub>2</sub>: \(M =
-                46,0055 [{g \over
-                mol}] = 46005,5 [{mg \over mol}]\). Faktor za
+                46,0055 {g \over
+                mol} = 46005,5 {mg \over mol}\). Faktor za
                 pretvorbo v masno koncentracijo za dušikove okside je tako:
-                \[ NO_x [{mg \over m^3}] = NO_x [ppm] \cdot 2,053 \]
+                \[ NO_x \left[{mg \over m^3}\right] = NO_x \left[ppm\right] \cdot 2,053 \]
             </p>
             <br />
             <br />
@@ -102,9 +105,8 @@
             <p>Če je pri zgorevanju prisotnega več zraka, kot je potrebno pride do "redčenja" dimnih plinov - zaradi
                 tega
                 je poterben preračun izmerjene vrednosti na referenčno vrednost kisika:
-                \[ C [ {mg \over m^3} | O_{2,ref} ] = C [ {mg \over m^3}] \cdot { O_{2,max} - O_{2,ref} \over O_{2,max}
-                -
-                O_2} \]
+                \[ C \left[{mg \over m^3} | O_{2,ref} \right] = C \left[ {mg \over m^3}\right] \cdot { O_{2,max} -
+                O_{2,ref} \over O_{2,max} - O_2} \]
                 kjer je:
             <div class="content">
                 <ul>
@@ -119,9 +121,9 @@
             <p>
                 Za novejše kurilne naprave je potreben tudi izračun emisij v enoti mg/kWh (miligram na kilovatno uro).
                 Ta izračun poteka po enačbi:
-                \[ C [ {mg \over kWh} ] = C [ {mg \over m^3}] \cdot { O_{2,max} \over O_{2,max} - O_2} \cdot {V_{d,s}
-                \over
-                H_{i} }\]
+                \[ C \left[{mg \over kWh}\right] = C \left[{mg \over m^3}\right] \cdot { O_{2,max} \over O_{2,max} -
+                O_2} \cdot {V_{d,s}
+                \over H_{i} }\]
                 kjer je:
             <div class="content">
                 <ul>
@@ -200,7 +202,8 @@
                 zgorevanju nastaja vroč dimni plin, toplotni izmenjevalnik v kurilni napravi nato poskuša ujeti čimvečjo
                 količino te toplote, ker pa nobena naprava ni idealna se delež te toplote tudi izgubi preko dimnih
                 plinov. Ta delež izračunamo s pomočjo empirične "Siegertove" enačbe:
-                \[ Izgube [\%] = \left( T_{plin} - T_{zrak} \right) \cdot \left( { A_2 \over O_{2,max} - O_2} + B \right) \]
+                \[ Izgube [\%] = \left( T_{plin} - T_{zrak} \right) \cdot \left( { A_2 \over O_{2,max} - O_2} + B
+                \right) \]
                 kjer je:
             <div class="content">
                 <ul>
