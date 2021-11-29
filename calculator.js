@@ -10,50 +10,42 @@ const FUELS = {
     erdgas_E: {
         CO2max: 12.1,
         O2bez: 3,
-        A1: 0.37,
+        A2: 0.64,
         B: 0.009,
-        V: 8.900,
-        H: 10.380,
         F: 0.8574,
 
     },
     heizol_EL: {
         CO2max: 15.4,
         O2bez: 3,
-        A1: 0.5,
+        A2: 0.68,
         B: 0.007,
-        V: 10.375,
-        H: 11.860,
-        F: 0.8748,
+        F: 0.8820,
     },
     propan: {
         CO2max: 13.7,
         O2bez: 3,
-        A1: 0.43,
+        A2: 0.66,
         B: 0.007,
-        V: 21.8,
-        H: 25.893,
         F: 0.8419,
     },
     butan: {
         CO2max: 14.1,
         O2bez: 3,
-        A1: 0.45,
+        A1: 0.67,
         B: 0.007,
-        V: 28.440,
-        H: 34.392,
         F: 0.8269,
     },
     holz_trocken: {
         CO2max: 20.3,
         O2bez: 13,
-        A1: 0.6,
+        A1: 0.62,
         B: 0.009,
     },
     pellets: {
         CO2max: 20.3,
         O2bez: 13,
-        A1: 0.74,
+        A1: 0.77,
         B: 0.0
     }
 }
@@ -279,7 +271,6 @@ function co2(fuel, o2) {
 }
 
 function losses(t_gas, t_air, o2, fuel) {
-    let A2 = O2_MAX * fuel.A1 / fuel.CO2max;
-    let loss = (t_gas - t_air) * (fuel.B + A2 / (O2_MAX - o2));
+    let loss = (t_gas - t_air) * (fuel.B + fuel.A2 / (O2_MAX - o2));
     return loss;
 }
