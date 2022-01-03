@@ -32,20 +32,20 @@ const FUELS = {
     butan: {
         CO2max: 14.1,
         O2bez: 3,
-        A1: 0.67,
+        A2: 0.67,
         B: 0.007,
         F: 0.8269,
     },
     holz_trocken: {
         CO2max: 20.3,
         O2bez: 13,
-        A1: 0.62,
+        A2: 0.62,
         B: 0.009,
     },
     pellets: {
         CO2max: 20.3,
         O2bez: 13,
-        A1: 0.77,
+        A2: 0.77,
         B: 0.0
     }
 }
