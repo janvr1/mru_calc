@@ -7,7 +7,8 @@
     <meta charset="utf-8">
     <meta name="author" content="Jan Vrhovec">
     <meta name="description" content="Kalkulator emisij dimnih plinov">
-    <meta name="keywords" content="kalkulator,emisije,analizatorji,dimni,plini,ppm,mg/m3,mg/kwh,pretvorbe,zgorevanje,lambda,CO2,izgube">
+    <meta name="keywords"
+        content="kalkulator,emisije,analizatorji,dimni,plini,ppm,mg/m3,mg/kwh,pretvorbe,zgorevanje,lambda,CO2,izgube">
 
     <link rel="stylesheet" href="bulma.min.css">
     <link href="favicon.ico" rel="icon" type="image/x-icon" />
@@ -109,7 +110,8 @@
 
                                         <div class="control" style="max-width: 50%;">
                                             <span class="select">
-                                                <select class="select" id="unit_NO" name="unit_no" onchange="hide_o2ref()">
+                                                <select class="select" id="unit_NO" name="unit_no"
+                                                    onchange="hide_o2ref()">
                                                     <option value="ppm">ppm</option>
                                                     <option value="mg_m3">mg/m3</option>
                                                     <option value="mg_m3_o2">mg/m3|O2ref</option>
@@ -185,7 +187,7 @@
                     <div class="column" style="padding-right: 40pt;">
                         <p class="title is-4">Parametri za izračun</p>
 
-                        <div class="field is-horizontal"  title="Vnesite računsko vsebnost kisika za izračune">
+                        <div class="field is-horizontal" title="Vnesite računsko vsebnost kisika za izračune">
                             <div class="field-label is-normal">
                                 <label class="label">O<sub>2,ref</sub></label>
                             </div>
@@ -255,7 +257,7 @@
             </div>
         </div>
     </section>
-    <section>
+    <section class="section">
         <div class="container">
             <div class="box">
                 <p class="title is-4">Rezultati</p>
@@ -372,6 +374,18 @@
             </div>
         </div>
     </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="box">
+                <a href="https://www.mru.si" target="_blank">
+                    <img src="banner.png" />
+                </a>
+            </div>
+        </div>
+    </section>
+
+
     <script src="common.js"></script>
     <script src="calculator.js"></script>
 </body>
