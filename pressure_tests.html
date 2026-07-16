@@ -3,443 +3,395 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TRGI Stopnja Puščanja - Tabelarni prikaz</title>
+    <title>Merilnik puščanja po DVGW G600 / G5952</title>
     <style>
         :root {
-            --primary: #1e293b;
-            --primary-light: #334155;
-            --accent: #2563eb;
-            --accent-light: rgba(37, 99, 235, 0.1);
-            --border: #e2e8f0;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --bg-canvas: #f8fafc;
-            --bg-card: #ffffff;
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
             
-            /* Status colors */
-            --green: #22c55e;
-            --green-light: rgba(34, 197, 94, 0.1);
-            --orange: #f97316;
-            --orange-light: rgba(249, 115, 22, 0.15);
-            --red: #ef4444;
-            --red-light: rgba(239, 68, 68, 0.1);
+            /* Barve pragov */
+            --safe-bg: #d4edda;
+            --safe-text: #155724;
+            --warning-bg: #fff3cd;
+            --warning-text: #856404;
+            --danger-bg: #f8d7da;
+            --danger-text: #721c24;
+
+            /* Močnejše barve za presek smeri (crosshair) */
+            --safe-bg-cross: #b1dfbb;
+            --warning-bg-cross: #ffe082;
+            --danger-bg-cross: #f1b0b7;
+
+            /* Najmočnejše barve za izbrano celico (presečišče) */
+            --safe-bg-center: #82cfa2;
+            --warning-bg-center: #ffca28;
+            --danger-bg-center: #e07a82;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-canvas);
-            color: var(--text-main);
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
             margin: 0;
-            padding: 24px;
-            display: flex;
-            justify-content: center;
+            padding: 20px;
         }
 
         .container {
-            width: 100%;
-            max-width: 1200px;
-            background: var(--bg-card);
-            padding: 32px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            border: 1px solid var(--border);
-        }
-
-        header {
-            margin-bottom: 24px;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 16px;
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
         h1 {
-            font-size: 1.75rem;
-            color: var(--primary);
-            margin: 0 0 8px 0;
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            font-size: 24px;
         }
 
-        .meta-grid {
+        .input-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
+            gap: 20px;
+            margin-bottom: 30px;
+            background: #f1f3f5;
+            padding: 20px;
+            border-radius: 6px;
         }
 
-        .meta-card {
-            background: var(--bg-canvas);
-            padding: 12px 16px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
+        .input-group {
+            display: flex;
+            flex-direction: column;
         }
 
-        .meta-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-        }
-
-        .meta-value {
-            font-size: 1.125rem;
+        .input-group label {
             font-weight: 600;
-            color: var(--primary);
+            margin-bottom: 8px;
+            color: var(--primary-color);
         }
 
-        /* Table wrapper to allow horizontal scroll on mobile */
-        .table-responsive {
+        .input-group input, .input-group select {
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .table-container {
             overflow-x: auto;
-            margin-top: 16px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
+            margin-bottom: 30px;
+            position: relative;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.875rem;
-            text-align: right;
-            background: var(--bg-card);
+            text-align: center;
+            font-size: 14px;
         }
 
         th, td {
-            padding: 12px 16px;
-            border: 1px solid var(--border);
-            transition: background-color 0.15s ease;
+            border: 1px solid #dee2e6;
+            padding: 10px 8px;
+            transition: background-color 0.1s ease, font-weight 0.1s ease, color 0.1s ease;
         }
 
-        /* Table Headers */
-        thead th {
-            background-color: var(--primary);
-            color: #ffffff;
+        th {
+            background-color: var(--primary-color);
+            color: white;
             font-weight: 600;
-            text-align: center;
         }
 
-        .row-group-header {
-            background-color: var(--primary-light);
-            color: #ffffff;
-            font-weight: 600;
-            text-align: left;
-        }
-
-        /* Index column styling */
-        td.index-col, th.index-col {
-            font-weight: 600;
-            background-color: var(--bg-canvas);
-            color: var(--primary);
-            text-align: left;
-            position: sticky;
-            left: 0;
-            z-index: 2;
-            border-right: 2px solid var(--border);
-        }
-
-        thead th.index-col {
-            background-color: var(--primary);
-            color: #ffffff;
-        }
-
-        /* Hover Interaction classes (crosshair highlighting) */
-        tr.row-hover {
-            background-color: var(--accent-light) !important;
-        }
-
-        td.col-hover, th.col-hover {
-            background-color: var(--accent-light) !important;
-        }
-
-        /* Active intersecting cell */
-        td.col-hover.row-hover-cell {
-            background-color: rgba(37, 99, 235, 0.25) !important;
+        .row-header {
+            background-color: #e9ecef;
             font-weight: bold;
-            color: var(--accent);
+            color: var(--primary-color);
+            text-align: left;
+            padding-left: 12px;
         }
 
-        /* Coloring the leakage rates based on safety threshold */
-        .warning {
-            color: #c2410c;
-            background-color: var(--orange-light);
-            font-weight: 600;
+        .meta-row {
+            background-color: #f1f3f5;
+            font-weight: 500;
+            color: #495057;
         }
 
-        /* Legend/Classification Rules */
+        .meta-label {
+            text-align: left;
+            padding-left: 12px;
+            font-weight: bold;
+            background-color: #e9ecef;
+            color: var(--primary-color);
+        }
+
+        /* Privzeti razredi pragov puščanja */
+        .status-safe { background-color: var(--safe-bg); color: var(--safe-text); }
+        .status-warning { background-color: var(--warning-bg); color: var(--warning-text); }
+        .status-danger { background-color: var(--danger-bg); color: var(--danger-text); }
+
+        /* --- Dinamično poudarjanje smeri (Crosshair) --- */
+        
+        /* 1. Označevanje vrstice in stolpca (srednja intenzivnost) */
+        .status-safe.highlight-cross {
+            background-color: var(--safe-bg-cross) !important;
+        }
+        .status-warning.highlight-cross {
+            background-color: var(--warning-bg-cross) !important;
+        }
+        .status-danger.highlight-cross {
+            background-color: var(--danger-bg-cross) !important;
+        }
+
+        /* 2. Poudarek same celice presečišča (maksimalna intenzivnost + krepko) */
+        .status-safe.highlight-center {
+            background-color: var(--safe-bg-center) !important;
+            font-weight: 900 !important;
+        }
+        .status-warning.highlight-center {
+            background-color: var(--warning-bg-center) !important;
+            font-weight: 900 !important;
+        }
+        .status-danger.highlight-center {
+            background-color: var(--danger-bg-center) !important;
+            font-weight: 900 !important;
+        }
+
+        /* 3. Poudarek stranskih in zgornjih glav tabele ob lebdenju */
+        th.highlight-cross {
+            background-color: #1a252f !important;
+            color: #fff !important;
+        }
+        .meta-row.highlight-cross {
+            background-color: #dee2e6 !important;
+        }
+        td.row-header.highlight-cross {
+            background-color: #ced4da !important;
+        }
+
         .legend-section {
-            margin-top: 32px;
-            padding: 20px;
-            background-color: var(--bg-canvas);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-
-        .legend-title {
-            font-weight: 600;
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-            color: var(--primary);
-        }
-
-        .legend-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px;
+            background: #fff;
+            border-top: 2px solid #eee;
+            padding-top: 20px;
         }
 
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 10px 14px;
-            background: var(--bg-card);
-            border-radius: 6px;
-            border: 1px solid var(--border);
+            margin-bottom: 10px;
         }
 
-        .legend-badge {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
+        .legend-box {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            margin-right: 15px;
+            border: 1px solid #ccc;
         }
 
-        .badge-green { background-color: var(--green); }
-        .badge-orange { background-color: var(--orange); }
-        .badge-red { background-color: var(--red); }
-
-        .legend-text strong {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--primary);
-        }
-        .legend-text span {
-            font-size: 0.8rem;
-            color: var(--text-muted);
+        .info-footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <h1>TRGI Stopnja Puščanja (l/h)</h1>
-        <p style="color: var(--text-muted); margin: 0; font-size: 0.95rem;">
-            Pretvorba padca tlaka v stopnjo puščanja pri referenčnih testnih parametrih.
-        </p>
-    </header>
-
-    <div class="meta-grid">
-        <div class="meta-card">
-            <div class="meta-label">Atmosferski Tlak (P<sub>atm</sub>)</div>
-            <div class="meta-value">1013.25 mbar</div>
+    <h1>Matrični kalkulator stopnje puščanja po DVGW G600 / G5952</h1>
+    
+    <!-- Vnosna polja -->
+    <div class="input-grid">
+        <div class="input-group">
+            <label for="testTime">Čas meritve (t) [min]</label>
+            <input type="number" id="testTime" value="5" min="0.1" step="0.1">
         </div>
-        <div class="meta-card">
-            <div class="meta-label">Čas Trajanja Testa (t)</div>
-            <div class="meta-value">10.0 min</div>
+        <div class="input-group">
+            <label for="testPressure">Merilni tlak (p_test) [mbar]</label>
+            <input type="number" id="testPressure" value="23" min="1" step="0.5">
         </div>
-        <div class="meta-card">
-            <div class="meta-label">Uporabljeni Standard</div>
-            <div class="meta-value">DVGW TRGI 2018 / G 5952</div>
+        <div class="input-group">
+            <label for="testMedium">Merilni medij</label>
+            <select id="testMedium">
+                <option value="air">Zrak (Air)</option>
+                <option value="gas">Zemeljski plin / Metan (Gas)</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>Atmosferski tlak (p_amb)</label>
+            <input type="text" value="1013,25 mbar" disabled style="background:#e9ecef; color:#6c757d;">
         </div>
     </div>
 
-    <div class="table-responsive">
-        <table id="leakage-table">
+    <!-- Tabela z rezultati -->
+    <div class="table-container">
+        <table id="leakTable">
             <thead>
-                <!-- Row 1: Pipe lengths -->
-                <tr>
-                    <th class="index-col" style="text-align: left;">Dolžina cevi L (3/4")</th>
-                    <th style="background-color: var(--primary-light);">3.0 m</th>
-                    <th style="background-color: var(--primary-light);">6.0 m</th>
-                    <th style="background-color: var(--primary-light);">9.0 m</th>
-                    <th style="background-color: var(--primary-light);">12.0 m</th>
-                    <th style="background-color: var(--primary-light);">15.0 m</th>
-                    <th style="background-color: var(--primary-light);">30.0 m</th>
-                    <th style="background-color: var(--primary-light);">45.0 m</th>
-                    <th style="background-color: var(--primary-light);">60.0 m</th>
-                    <th style="background-color: var(--primary-light);">90.0 m</th>
-                </tr>
-                <!-- Row 2: Volumes -->
-                <tr>
-                    <th class="index-col" style="text-align: left;">Volumen inštalacije V [L]</th>
-                    <th>1 L</th>
-                    <th>2 L</th>
-                    <th>3 L</th>
-                    <th>4 L</th>
-                    <th>5 L</th>
-                    <th>10 L</th>
-                    <th>15 L</th>
-                    <th>20 L</th>
-                    <th>30 L</th>
-                </tr>
+                <!-- Dinamično generirano v JS -->
             </thead>
             <tbody>
-                <!-- Data Rows representing pressure drops -->
-                <tr data-padec="0.5">
-                    <td class="index-col">0.5 mbar</td>
-                    <td>0.0030</td>
-                    <td>0.0059</td>
-                    <td>0.0089</td>
-                    <td>0.0118</td>
-                    <td>0.0148</td>
-                    <td>0.0296</td>
-                    <td>0.0444</td>
-                    <td>0.0592</td>
-                    <td>0.0888</td>
-                </tr>
-                <tr data-padec="1.0">
-                    <td class="index-col">1.0 mbar</td>
-                    <td>0.0059</td>
-                    <td>0.0118</td>
-                    <td>0.0178</td>
-                    <td>0.0237</td>
-                    <td>0.0296</td>
-                    <td>0.0592</td>
-                    <td>0.0888</td>
-                    <td>0.1184</td>
-                    <td>0.1776</td>
-                </tr>
-                <tr data-padec="1.5">
-                    <td class="index-col">1.5 mbar</td>
-                    <td>0.0089</td>
-                    <td>0.0178</td>
-                    <td>0.0266</td>
-                    <td>0.0355</td>
-                    <td>0.0444</td>
-                    <td>0.0888</td>
-                    <td>0.1332</td>
-                    <td>0.1776</td>
-                    <td>0.2665</td>
-                </tr>
-                <tr data-padec="2.0">
-                    <td class="index-col">2.0 mbar</td>
-                    <td>0.0118</td>
-                    <td>0.0237</td>
-                    <td>0.0355</td>
-                    <td>0.0474</td>
-                    <td>0.0592</td>
-                    <td>0.1184</td>
-                    <td>0.1776</td>
-                    <td>0.2369</td>
-                    <td>0.3553</td>
-                </tr>
-                <tr data-padec="3.0">
-                    <td class="index-col">3.0 mbar</td>
-                    <td>0.0178</td>
-                    <td>0.0355</td>
-                    <td>0.0533</td>
-                    <td>0.0711</td>
-                    <td>0.0888</td>
-                    <td>0.1776</td>
-                    <td>0.2665</td>
-                    <td>0.3553</td>
-                    <td>0.5329</td>
-                </tr>
-                <tr data-padec="5.0">
-                    <td class="index-col">5.0 mbar</td>
-                    <td>0.0296</td>
-                    <td>0.0592</td>
-                    <td>0.0888</td>
-                    <td>0.1184</td>
-                    <td>0.1480</td>
-                    <td>0.2961</td>
-                    <td>0.4441</td>
-                    <td>0.5922</td>
-                    <td>0.8882</td>
-                </tr>
-                <tr data-padec="10.0">
-                    <td class="index-col">10.0 mbar</td>
-                    <td>0.0592</td>
-                    <td>0.1184</td>
-                    <td>0.1776</td>
-                    <td>0.2369</td>
-                    <td>0.2961</td>
-                    <td>0.5922</td>
-                    <td>0.8882</td>
-                    <td class="warning">1.1843</td>
-                    <td class="warning">1.7765</td>
-                </tr>
+                <!-- Dinamično generirano v JS -->
             </tbody>
         </table>
     </div>
 
+    <!-- Razlaga ocenjevalnih pragov po standardu -->
     <div class="legend-section">
-        <div class="legend-title">Kategorizacija stopnje puščanja po TRGI</div>
-        <div class="legend-grid">
-            <div class="legend-item">
-                <div class="legend-badge badge-green"></div>
-                <div class="legend-text">
-                    <strong>Uporabno (Fully Serviceable)</strong>
-                    <span>Puščanje &lt; 1.0 l/h (Brez ukrepov)</span>
-                </div>
-            </div>
-            <div class="legend-item">
-                <div class="legend-badge badge-orange"></div>
-                <div class="legend-text">
-                    <strong>Pogojno uporabno (Partially Serviceable)</strong>
-                    <span>Puščanje med 1.0 in 5.0 l/h (Sanacija v roku 4 tednov)</span>
-                </div>
-            </div>
-            <div class="legend-item">
-                <div class="legend-badge badge-red"></div>
-                <div class="legend-text">
-                    <strong>Neuporabno (Unserviceable)</strong>
-                    <span>Puščanje &ge; 5.0 l/h (Takojšen izklop iz obratovanja)</span>
-                </div>
-            </div>
+        <h3>Ocenjevalna matrika DVGW G600 (Gebrauchsfähigkeit - uporabnost)</h3>
+        <div class="legend-item">
+            <div class="legend-box status-safe"></div>
+            <div><strong>Stopnja puščanja &lt; 1,0 l/h: Neomejena uporabnost (Gebrauchsfähigkeit gegeben)</strong> - Napeljava je varna za neprekinjeno obratovanje.</div>
         </div>
+        <div class="legend-item">
+            <div class="legend-box status-warning"></div>
+            <div><strong>Stopnja puščanja od 1,0 l/h do &lt; 5,0 l/h: Omejena uporabnost (Verminderte Gebrauchsfähigkeit)</strong> - Napeljavo je treba strokovno popraviti ali zatesniti v roku 4 tednov.</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-box status-danger"></div>
+            <div><strong>Stopnja puščanja &ge; 5,0 l/h: Ni uporabnosti / Nevarnost (Keine Gebrauchsfähigkeit)</strong> - Napeljavo je treba takoj izločiti iz obratovanja in zapreti ventil.</div>
+        </div>
+    </div>
+
+    <div class="info-footer">
+        * Ocene dolžine cevi temeljijo na standardnih evropskih bakrenih plinskih ceveh: 3/4" (22x1 mm) ≈ 0,314 l/m; 1" (28x1,5 mm) ≈ 0,491 l/m.<br>
     </div>
 </div>
 
 <script>
-    const table = document.getElementById('leakage-table');
-    const cells = table.querySelectorAll('td, th');
+    const p_amb = 1013.25;
+    const p_oper = 23; // Standardni delovni tlak
+    
+    const volumes = [1, 2, 3, 5, 10, 15, 20, 30];
+    const drops = [0.1, 0.5, 1, 1.5, 2, 3, 5, 10];
 
-    cells.forEach(cell => {
-        cell.addEventListener('mouseenter', () => {
-            const colIndex = cell.cellIndex;
-            const rowIndex = cell.parentNode.rowIndex;
+    // Pretvorbeni faktorji za bakrene cevi (litri na meter)
+    const factor34 = 0.31416;
+    const factor1 = 0.49087;
 
-            if (colIndex === undefined || colIndex === -1) return;
+    const table = document.getElementById('leakTable');
 
-            // Highlight Row
-            cell.parentNode.classList.add('row-hover');
+    function calculateLeakRate(V, dp, t, p_test, medium) {
+        // Fizikalna formula usklajena z MRU poročilom
+        let rawLeak = (V * 60 * dp) / (t * (p_amb + p_test));
+        let pressureComp = p_oper / p_test;
+        let mediumComp = (medium === 'air') ? 1.68 : 1.0;
+        
+        return rawLeak * pressureComp * mediumComp;
+    }
 
-            // Highlight Column
-            const rows = table.rows;
-            for (let i = 0; i < rows.length; i++) {
-                const targetCell = rows[i].cells[colIndex];
-                if (targetCell) {
-                    targetCell.classList.add('col-hover');
-                }
-            }
+    function getThresholdClass(rate) {
+        if (rate < 1.0) return 'status-safe';
+        if (rate < 5.0) return 'status-warning';
+        return 'status-danger';
+    }
 
-            // Highlight intersecting cell itself uniquely
-            if (cell.tagName === 'TD' && colIndex > 0) {
-                cell.classList.add('row-hover-cell');
-            }
+    function renderTable() {
+        const t = parseFloat(document.getElementById('testTime').value) || 5;
+        const p_test = parseFloat(document.getElementById('testPressure').value) || 23;
+        const medium = document.getElementById('testMedium').value;
+
+        // --- Generiranje glave tabele (Natančno 9 stolpcev v vsaki vrstici za poravnavo) ---
+        let headerHtml = `
+            <tr>
+                <th class="meta-label">Pribl. dolžina 3/4" cevi *</th>
+        `;
+        volumes.forEach(v => {
+            headerHtml += `<th class="meta-row">${Math.round(v / factor34)} m</th>`;
         });
+        headerHtml += `</tr>`;
 
-        cell.addEventListener('mouseleave', () => {
-            const colIndex = cell.cellIndex;
-
-            if (colIndex === undefined || colIndex === -1) return;
-
-            // Remove Row highlight
-            cell.parentNode.classList.remove('row-hover');
-
-            // Remove Column highlight
-            const rows = table.rows;
-            for (let i = 0; i < rows.length; i++) {
-                const targetCell = rows[i].cells[colIndex];
-                if (targetCell) {
-                    targetCell.classList.remove('col-hover');
-                }
-            }
-
-            // Remove cell specific active color
-            if (cell.tagName === 'TD') {
-                cell.classList.remove('row-hover-cell');
-            }
+        headerHtml += `
+            <tr>
+                <th class="meta-label">Pribl. dolžina 1" cevi *</th>
+        `;
+        volumes.forEach(v => {
+            headerHtml += `<th class="meta-row">${Math.round(v / factor1)} m</th>`;
         });
-    });
+        headerHtml += `</tr>`;
+
+        headerHtml += `
+            <tr>
+                <th style="background-color:#1e2b37; text-align: left; padding-left: 12px;">Razlika (dp) \\ Volumen (V)</th>
+        `;
+        volumes.forEach(v => {
+            headerHtml += `<th style="background-color:#1e2b37;">${v} L</th>`;
+        });
+        headerHtml += `</tr>`;
+
+        table.querySelector('thead').innerHTML = headerHtml;
+
+        // --- Generiranje podatkovnih vrstic ---
+        let bodyHtml = '';
+        drops.forEach(dp => {
+            bodyHtml += `<tr><td class="row-header">${dp} mbar</td>`;
+            volumes.forEach((v, colIndex) => {
+                let rate = calculateLeakRate(v, dp, t, p_test, medium);
+                let thresholdClass = getThresholdClass(rate);
+                // Izpis decimalnih mest z vejico za slovenski jezik
+                let formattedRate = rate.toFixed(1).replace('.', ',');
+                bodyHtml += `<td class="${thresholdClass}" data-col="${colIndex}">${formattedRate}</td>`;
+            });
+            bodyHtml += `</tr>`;
+        });
+        table.querySelector('tbody').innerHTML = bodyHtml;
+
+        setupCrosshair();
+    }
+
+    function setupCrosshair() {
+        const cells = table.querySelectorAll('tbody td[data-col]');
+        
+        cells.forEach(cell => {
+            cell.addEventListener('mouseover', function() {
+                const colIndex = parseInt(this.getAttribute('data-col'));
+                const rowCells = this.parentNode.children;
+                
+                // Označi vrstico (vključno z glavo vrstice na indeksu 0)
+                for (let i = 0; i < rowCells.length; i++) {
+                    rowCells[i].classList.add('highlight-cross');
+                }
+                
+                // Označi stolpec
+                const targetCells = table.querySelectorAll(`tbody td[data-col="${colIndex}"]`);
+                targetCells.forEach(c => c.classList.add('highlight-cross'));
+                
+                // Označi ustrezno glavo na vrhu (z odmikom +1 zaradi opisnega prvega stolpca)
+                const allHeaders = table.querySelectorAll('thead tr');
+                allHeaders.forEach(tr => {
+                    const ths = tr.children;
+                    const targetTh = ths[colIndex + 1];
+                    if (targetTh) {
+                        targetTh.classList.add('highlight-cross');
+                    }
+                });
+
+                // Dodaj močan poudarek aktivnega presečišča
+                this.classList.add('highlight-center');
+            });
+
+            cell.addEventListener('mouseout', function() {
+                const allElements = table.querySelectorAll('.highlight-cross, .highlight-center');
+                allElements.forEach(el => {
+                    el.classList.remove('highlight-cross', 'highlight-center');
+                });
+            });
+        });
+    }
+
+    // Dinamično osveževanje ob spreminjanju vnosov
+    document.getElementById('testTime').addEventListener('input', renderTable);
+    document.getElementById('testPressure').addEventListener('input', renderTable);
+    document.getElementById('testMedium').addEventListener('change', renderTable);
+
+    // Prva inicializacija ob nalaganju strani
+    window.onload = renderTable;
 </script>
 
 </body>
