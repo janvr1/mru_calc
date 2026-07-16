@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRGI Stopnja Puščanja - Tabelarni prikaz</title>
+    <style>
+        :root {
+            --primary: #1e293b;
+            --primary-light: #334155;
+            --accent: #2563eb;
+            --accent-light: rgba(37, 99, 235, 0.1);
+            --border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --bg-canvas: #f8fafc;
+            --bg-card: #ffffff;
+            
+            /* Status colors */
+            --green: #22c55e;
+            --green-light: rgba(34, 197, 94, 0.1);
+            --orange: #f97316;
+            --orange-light: rgba(249, 115, 22, 0.15);
+            --red: #ef4444;
+            --red-light: rgba(239, 68, 68, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-canvas);
+            color: var(--text-main);
+            margin: 0;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background: var(--bg-card);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border);
+        }
+
+        header {
+            margin-bottom: 24px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            color: var(--primary);
+            margin: 0 0 8px 0;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .meta-card {
+            background: var(--bg-canvas);
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .meta-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .meta-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Table wrapper to allow horizontal scroll on mobile */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+            text-align: right;
+            background: var(--bg-card);
+        }
+
+        th, td {
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            transition: background-color 0.15s ease;
+        }
+
+        /* Table Headers */
+        thead th {
+            background-color: var(--primary);
+            color: #ffffff;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .row-group-header {
+            background-color: var(--primary-light);
+            color: #ffffff;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        /* Index column styling */
+        td.index-col, th.index-col {
+            font-weight: 600;
+            background-color: var(--bg-canvas);
+            color: var(--primary);
+            text-align: left;
+            position: sticky;
+            left: 0;
+            z-index: 2;
+            border-right: 2px solid var(--border);
+        }
+
+        thead th.index-col {
+            background-color: var(--primary);
+            color: #ffffff;
+        }
+
+        /* Hover Interaction classes (crosshair highlighting) */
+        tr.row-hover {
+            background-color: var(--accent-light) !important;
+        }
+
+        td.col-hover, th.col-hover {
+            background-color: var(--accent-light) !important;
+        }
+
+        /* Active intersecting cell */
+        td.col-hover.row-hover-cell {
+            background-color: rgba(37, 99, 235, 0.25) !important;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        /* Coloring the leakage rates based on safety threshold */
+        .warning {
+            color: #c2410c;
+            background-color: var(--orange-light);
+            font-weight: 600;
+        }
+
+        /* Legend/Classification Rules */
+        .legend-section {
+            margin-top: 32px;
+            padding: 20px;
+            background-color: var(--bg-canvas);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .legend-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: var(--primary);
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: var(--bg-card);
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .legend-badge {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .badge-green { background-color: var(--green); }
+        .badge-orange { background-color: var(--orange); }
+        .badge-red { background-color: var(--red); }
+
+        .legend-text strong {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--primary);
+        }
+        .legend-text span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>TRGI Stopnja Puščanja (l/h)</h1>
+        <p style="color: var(--text-muted); margin: 0; font-size: 0.95rem;">
+            Pretvorba padca tlaka v stopnjo puščanja pri referenčnih testnih parametrih.
+        </p>
+    </header>
+
+    <div class="meta-grid">
+        <div class="meta-card">
+            <div class="meta-label">Atmosferski Tlak (P<sub>atm</sub>)</div>
+            <div class="meta-value">1013.25 mbar</div>
+        </div>
+        <div class="meta-card">
+            <div class="meta-label">Čas Trajanja Testa (t)</div>
+            <div class="meta-value">10.0 min</div>
+        </div>
+        <div class="meta-card">
+            <div class="meta-label">Uporabljeni Standard</div>
+            <div class="meta-value">DVGW TRGI 2018 / G 5952</div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table id="leakage-table">
+            <thead>
+                <!-- Row 1: Pipe lengths -->
+                <tr>
+                    <th class="index-col" style="text-align: left;">Dolžina cevi L (3/4")</th>
+                    <th style="background-color: var(--primary-light);">3.0 m</th>
+                    <th style="background-color: var(--primary-light);">6.0 m</th>
+                    <th style="background-color: var(--primary-light);">9.0 m</th>
+                    <th style="background-color: var(--primary-light);">12.0 m</th>
+                    <th style="background-color: var(--primary-light);">15.0 m</th>
+                    <th style="background-color: var(--primary-light);">30.0 m</th>
+                    <th style="background-color: var(--primary-light);">45.0 m</th>
+                    <th style="background-color: var(--primary-light);">60.0 m</th>
+                    <th style="background-color: var(--primary-light);">90.0 m</th>
+                </tr>
+                <!-- Row 2: Volumes -->
+                <tr>
+                    <th class="index-col" style="text-align: left;">Volumen inštalacije V [L]</th>
+                    <th>1 L</th>
+                    <th>2 L</th>
+                    <th>3 L</th>
+                    <th>4 L</th>
+                    <th>5 L</th>
+                    <th>10 L</th>
+                    <th>15 L</th>
+                    <th>20 L</th>
+                    <th>30 L</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data Rows representing pressure drops -->
+                <tr data-padec="0.5">
+                    <td class="index-col">0.5 mbar</td>
+                    <td>0.0030</td>
+                    <td>0.0059</td>
+                    <td>0.0089</td>
+                    <td>0.0118</td>
+                    <td>0.0148</td>
+                    <td>0.0296</td>
+                    <td>0.0444</td>
+                    <td>0.0592</td>
+                    <td>0.0888</td>
+                </tr>
+                <tr data-padec="1.0">
+                    <td class="index-col">1.0 mbar</td>
+                    <td>0.0059</td>
+                    <td>0.0118</td>
+                    <td>0.0178</td>
+                    <td>0.0237</td>
+                    <td>0.0296</td>
+                    <td>0.0592</td>
+                    <td>0.0888</td>
+                    <td>0.1184</td>
+                    <td>0.1776</td>
+                </tr>
+                <tr data-padec="1.5">
+                    <td class="index-col">1.5 mbar</td>
+                    <td>0.0089</td>
+                    <td>0.0178</td>
+                    <td>0.0266</td>
+                    <td>0.0355</td>
+                    <td>0.0444</td>
+                    <td>0.0888</td>
+                    <td>0.1332</td>
+                    <td>0.1776</td>
+                    <td>0.2665</td>
+                </tr>
+                <tr data-padec="2.0">
+                    <td class="index-col">2.0 mbar</td>
+                    <td>0.0118</td>
+                    <td>0.0237</td>
+                    <td>0.0355</td>
+                    <td>0.0474</td>
+                    <td>0.0592</td>
+                    <td>0.1184</td>
+                    <td>0.1776</td>
+                    <td>0.2369</td>
+                    <td>0.3553</td>
+                </tr>
+                <tr data-padec="3.0">
+                    <td class="index-col">3.0 mbar</td>
+                    <td>0.0178</td>
+                    <td>0.0355</td>
+                    <td>0.0533</td>
+                    <td>0.0711</td>
+                    <td>0.0888</td>
+                    <td>0.1776</td>
+                    <td>0.2665</td>
+                    <td>0.3553</td>
+                    <td>0.5329</td>
+                </tr>
+                <tr data-padec="5.0">
+                    <td class="index-col">5.0 mbar</td>
+                    <td>0.0296</td>
+                    <td>0.0592</td>
+                    <td>0.0888</td>
+                    <td>0.1184</td>
+                    <td>0.1480</td>
+                    <td>0.2961</td>
+                    <td>0.4441</td>
+                    <td>0.5922</td>
+                    <td>0.8882</td>
+                </tr>
+                <tr data-padec="10.0">
+                    <td class="index-col">10.0 mbar</td>
+                    <td>0.0592</td>
+                    <td>0.1184</td>
+                    <td>0.1776</td>
+                    <td>0.2369</td>
+                    <td>0.2961</td>
+                    <td>0.5922</td>
+                    <td>0.8882</td>
+                    <td class="warning">1.1843</td>
+                    <td class="warning">1.7765</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="legend-section">
+        <div class="legend-title">Kategorizacija stopnje puščanja po TRGI</div>
+        <div class="legend-grid">
+            <div class="legend-item">
+                <div class="legend-badge badge-green"></div>
+                <div class="legend-text">
+                    <strong>Uporabno (Fully Serviceable)</strong>
+                    <span>Puščanje &lt; 1.0 l/h (Brez ukrepov)</span>
+                </div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-badge badge-orange"></div>
+                <div class="legend-text">
+                    <strong>Pogojno uporabno (Partially Serviceable)</strong>
+                    <span>Puščanje med 1.0 in 5.0 l/h (Sanacija v roku 4 tednov)</span>
+                </div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-badge badge-red"></div>
+                <div class="legend-text">
+                    <strong>Neuporabno (Unserviceable)</strong>
+                    <span>Puščanje &ge; 5.0 l/h (Takojšen izklop iz obratovanja)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const table = document.getElementById('leakage-table');
+    const cells = table.querySelectorAll('td, th');
+
+    cells.forEach(cell => {
+        cell.addEventListener('mouseenter', () => {
+            const colIndex = cell.cellIndex;
+            const rowIndex = cell.parentNode.rowIndex;
+
+            if (colIndex === undefined || colIndex === -1) return;
+
+            // Highlight Row
+            cell.parentNode.classList.add('row-hover');
+
+            // Highlight Column
+            const rows = table.rows;
+            for (let i = 0; i < rows.length; i++) {
+                const targetCell = rows[i].cells[colIndex];
+                if (targetCell) {
+                    targetCell.classList.add('col-hover');
+                }
+            }
+
+            // Highlight intersecting cell itself uniquely
+            if (cell.tagName === 'TD' && colIndex > 0) {
+                cell.classList.add('row-hover-cell');
+            }
+        });
+
+        cell.addEventListener('mouseleave', () => {
+            const colIndex = cell.cellIndex;
+
+            if (colIndex === undefined || colIndex === -1) return;
+
+            // Remove Row highlight
+            cell.parentNode.classList.remove('row-hover');
+
+            // Remove Column highlight
+            const rows = table.rows;
+            for (let i = 0; i < rows.length; i++) {
+                const targetCell = rows[i].cells[colIndex];
+                if (targetCell) {
+                    targetCell.classList.remove('col-hover');
+                }
+            }
+
+            // Remove cell specific active color
+            if (cell.tagName === 'TD') {
+                cell.classList.remove('row-hover-cell');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
