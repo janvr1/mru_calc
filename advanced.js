@@ -30,10 +30,12 @@ function o2_factor(o2_ref, o2_meas) {
 
 const form = document.getElementById("input_form");
 
-// Sprotni preračun ob vsaki spremembi vnosa
+// Sprotni preračun ob vsaki spremembi vnosa.
+// Poslušamo na dokumentu, ker so nekatera vnosna polja (SO2, N2O, H2S,
+// O2, O2ref) izven elementa <form> in njihovi dogodki ne dosežejo forme.
 form.addEventListener("submit", function (e) { e.preventDefault(); calculate(); });
-form.addEventListener("input", calculate);
-form.addEventListener("change", calculate);
+document.addEventListener("input", calculate);
+document.addEventListener("change", calculate);
 
 function fmt(x) {
     if (!isFinite(x)) return "--";
