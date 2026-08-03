@@ -5,6 +5,11 @@
     <title>MRU kalkulator
     </title>
     <meta charset="utf-8">
+    <meta name="author" content="Jan Vrhovec">
+    <meta name="description" content="Napredni kalkulator za pretvorbo enot emisij dimnih plinov">
+    <meta name="keywords"
+        content="kalkulator,emisije,analizatorji,dimni,plini,ppm,mg/m3,pretvorbe,CO,NO,NO2,NOx,SO2,N2O,H2S,kisik">
+
     <link rel="stylesheet" href="bulma.min.css">
     <link href="favicon.ico" rel="icon" type="image/x-icon" />
 </head>
@@ -39,17 +44,175 @@
                 <a href="limits.html" class="navbar-item">
                     <p class="subtitle"> Mejne vrednosti</p>
                 </a>
+                <a href="pressure_tests.html" class="navbar-item">
+                    <p class="subtitle"> Tlačni testi</p>
+                </a>
             </div>
         </div>
     </nav>
 
+    <section class="section">
+        <div class="container">
+            <div class="box">
+                <div class="columns is-variable is-5 is-desktop">
+                    <div class="column" style="padding-right: 40pt;">
+                        <p class="title is-4">Vhodna vrednost</p>
+
+                        <form id="input_form">
+                            <div class="field is-horizontal" title="Izberite plin za pretvorbo">
+                                <div class="field-label is-normal">
+                                    <label class="label">Plin</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <div class="select">
+                                                <select id="input_gas">
+                                                    <option value="CO">CO</option>
+                                                    <option value="NO">NO</option>
+                                                    <option value="NO2">NO2</option>
+                                                    <option value="NOx">NOx (=NO+NO2)</option>
+                                                    <option value="SO2">SO2</option>
+                                                    <option value="N2O">N2O</option>
+                                                    <option value="H2S">H2S</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field is-horizontal" title="Vnesite vrednost, ki jo želite pretvoriti">
+                                <div class="field-label is-normal">
+                                    <label class="label">Vrednost</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field has-addons">
+                                        <div class="control is-expanded">
+                                            <input class="input" type="number" id="input_value" step="any" min="0"
+                                                placeholder="100" />
+                                        </div>
+                                        <div class="control" style="max-width: 55%;">
+                                            <span class="select">
+                                                <select id="input_unit">
+                                                    <option value="ppm">ppm</option>
+                                                    <option value="mg_m3">mg/m3</option>
+                                                    <option value="mg_m3_o2">mg/m3 | O2ref</option>
+                                                    <option value="ppm_o2">ppm | O2ref</option>
+                                                </select>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="column">
+                        <p class="title is-4">Parametri za izračun</p>
+
+                        <div class="field is-horizontal"
+                            title="Vnesite izmerjeno vsebnost kisika v dimnih plinih (potrebno za pretvorbe pri referenčnem kisiku)">
+                            <div class="field-label is-normal">
+                                <label class="label">O<sub>2</sub></label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field has-addons">
+                                    <div class="control is-expanded">
+                                        <input class="input" type="number" id="input_o2" min="0" max="20.9" step=".01"
+                                            placeholder="10.00" form="input_form" />
+                                    </div>
+                                    <div class="control">
+                                        <a class="button is-static">
+                                            <b>%</b>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal"
+                            title="Vnesite referenčno (računsko) vsebnost kisika za pretvorbe pri referenčnem kisiku">
+                            <div class="field-label is-normal">
+                                <label class="label">O<sub>2,ref</sub></label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field has-addons">
+                                    <div class="control is-expanded">
+                                        <input class="input" type="number" id="input_o2ref" min="0" max="20.89"
+                                            value="3" step=".01" placeholder="3" form="input_form" />
+                                    </div>
+                                    <div class="control">
+                                        <a class="button is-static">
+                                            <b>%</b>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="help">
+                            Za pretvorbe pri referenčnem kisiku (ppm | O<sub>2ref</sub> in mg/m<sup>3</sup> |
+                            O<sub>2ref</sub>) vnesite izmerjeni O<sub>2</sub> in referenčni O<sub>2,ref</sub>.
+                            NO<sub>x</sub> je izražen kot NO<sub>2</sub>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section class="section">
         <div class="container">
-            V izdelavi...
+            <div class="box">
+                <p class="title is-4">Rezultati</p>
+
+                <div class="columns">
+                    <div class="column is-half">
+                        <table class="table is-striped is-fullwidth"
+                            title="Pretvorjene vrednosti izbranega plina">
+                            <tbody>
+                                <tr>
+                                    <th id="out_gas_label">CO</th>
+                                    <td id="out_ppm">--</td>
+                                    <td>ppm</td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_mgm3">--</td>
+                                    <td>mg/m<sup>3</sup></td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_mgm3_o2">--</td>
+                                    <td id="out_o2ref_mg">mg/m<sup>3</sup> | O<sub>2</sub>=X%</td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_ppm_o2">--</td>
+                                    <td id="out_o2ref_ppm">ppm | O<sub>2</sub>=X%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="box">
+                <a href="https://www.mru.si" target="_blank">
+                    <img src="banner.jpg" />
+                </a>
+            </div>
+        </div>
+    </section>
+
+
     <script src="common.js"></script>
+    <script src="advanced.js"></script>
 </body>
 
 </html>
