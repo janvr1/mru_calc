@@ -56,49 +56,74 @@
             <div class="box">
                 <div class="columns is-variable is-5 is-desktop">
                     <div class="column" style="padding-right: 40pt;">
-                        <p class="title is-4">Vhodna vrednost</p>
+                        <p class="title is-4">Izmerjene vrednosti</p>
 
                         <form id="input_form">
-                            <div class="field is-horizontal" title="Izberite plin za pretvorbo">
+                            <div class="field is-horizontal" title="Vnesite izmerjeno vrednost ogljikovega monoksida">
                                 <div class="field-label is-normal">
-                                    <label class="label">Plin</label>
+                                    <label class="label">CO</label>
                                 </div>
                                 <div class="field-body">
-                                    <div class="field">
-                                        <div class="control">
-                                            <div class="select">
-                                                <select id="input_gas">
-                                                    <option value="CO">CO</option>
-                                                    <option value="NO">NO</option>
-                                                    <option value="NO2">NO2</option>
-                                                    <option value="NOx">NOx (=NO+NO2)</option>
-                                                    <option value="SO2">SO2</option>
-                                                    <option value="N2O">N2O</option>
-                                                    <option value="H2S">H2S</option>
+                                    <div class="field has-addons">
+                                        <div class="control is-expanded">
+                                            <input class="input" type="number" id="input_value_CO" step="any" min="0"
+                                                placeholder="500" />
+                                        </div>
+                                        <div class="control" style="max-width: 55%;">
+                                            <span class="select">
+                                                <select id="input_unit_CO">
+                                                    <option value="ppm">ppm</option>
+                                                    <option value="mg_m3">mg/m3</option>
+                                                    <option value="mg_m3_o2">mg/m3|O2ref</option>
+                                                    <option value="ppm_o2">ppm|O2ref</option>
                                                 </select>
-                                            </div>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="field is-horizontal" title="Vnesite vrednost, ki jo želite pretvoriti">
+                            <div class="field is-horizontal" title="Vnesite izmerjeno vrednost dušikovega monoksida">
                                 <div class="field-label is-normal">
-                                    <label class="label">Vrednost</label>
+                                    <label class="label">NO</label>
                                 </div>
                                 <div class="field-body">
                                     <div class="field has-addons">
                                         <div class="control is-expanded">
-                                            <input class="input" type="number" id="input_value" step="any" min="0"
+                                            <input class="input" type="number" id="input_value_NO" step="any" min="0"
                                                 placeholder="100" />
                                         </div>
                                         <div class="control" style="max-width: 55%;">
                                             <span class="select">
-                                                <select id="input_unit">
+                                                <select id="input_unit_NO">
                                                     <option value="ppm">ppm</option>
                                                     <option value="mg_m3">mg/m3</option>
-                                                    <option value="mg_m3_o2">mg/m3 | O2ref</option>
-                                                    <option value="ppm_o2">ppm | O2ref</option>
+                                                    <option value="mg_m3_o2">mg/m3|O2ref</option>
+                                                    <option value="ppm_o2">ppm|O2ref</option>
+                                                </select>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field is-horizontal" title="Vnesite izmerjeno vrednost dušikovega dioksida">
+                                <div class="field-label is-normal">
+                                    <label class="label">NO<sub>2</sub></label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field has-addons">
+                                        <div class="control is-expanded">
+                                            <input class="input" type="number" id="input_value_NO2" step="any" min="0"
+                                                placeholder="10" />
+                                        </div>
+                                        <div class="control" style="max-width: 55%;">
+                                            <span class="select">
+                                                <select id="input_unit_NO2">
+                                                    <option value="ppm">ppm</option>
+                                                    <option value="mg_m3">mg/m3</option>
+                                                    <option value="mg_m3_o2">mg/m3|O2ref</option>
+                                                    <option value="ppm_o2">ppm|O2ref</option>
                                                 </select>
                                             </span>
                                         </div>
@@ -108,7 +133,83 @@
                         </form>
                     </div>
 
-                    <div class="column">
+                    <div class="column" style="padding-right: 40pt;">
+                        <p class="title is-4">&nbsp;</p>
+
+                        <div class="field is-horizontal" title="Vnesite izmerjeno vrednost žveplovega dioksida">
+                            <div class="field-label is-normal">
+                                <label class="label">SO<sub>2</sub></label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field has-addons">
+                                    <div class="control is-expanded">
+                                        <input class="input" type="number" id="input_value_SO2" step="any" min="0"
+                                            placeholder="50" form="input_form" />
+                                    </div>
+                                    <div class="control" style="max-width: 55%;">
+                                        <span class="select">
+                                            <select id="input_unit_SO2" form="input_form">
+                                                <option value="ppm">ppm</option>
+                                                <option value="mg_m3">mg/m3</option>
+                                                <option value="mg_m3_o2">mg/m3|O2ref</option>
+                                                <option value="ppm_o2">ppm|O2ref</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal" title="Vnesite izmerjeno vrednost didušikovega oksida">
+                            <div class="field-label is-normal">
+                                <label class="label">N<sub>2</sub>O</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field has-addons">
+                                    <div class="control is-expanded">
+                                        <input class="input" type="number" id="input_value_N2O" step="any" min="0"
+                                            placeholder="10" form="input_form" />
+                                    </div>
+                                    <div class="control" style="max-width: 55%;">
+                                        <span class="select">
+                                            <select id="input_unit_N2O" form="input_form">
+                                                <option value="ppm">ppm</option>
+                                                <option value="mg_m3">mg/m3</option>
+                                                <option value="mg_m3_o2">mg/m3|O2ref</option>
+                                                <option value="ppm_o2">ppm|O2ref</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal" title="Vnesite izmerjeno vrednost vodikovega sulfida">
+                            <div class="field-label is-normal">
+                                <label class="label">H<sub>2</sub>S</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field has-addons">
+                                    <div class="control is-expanded">
+                                        <input class="input" type="number" id="input_value_H2S" step="any" min="0"
+                                            placeholder="5" form="input_form" />
+                                    </div>
+                                    <div class="control" style="max-width: 55%;">
+                                        <span class="select">
+                                            <select id="input_unit_H2S" form="input_form">
+                                                <option value="ppm">ppm</option>
+                                                <option value="mg_m3">mg/m3</option>
+                                                <option value="mg_m3_o2">mg/m3|O2ref</option>
+                                                <option value="ppm_o2">ppm|O2ref</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column" style="padding-right: 40pt;">
                         <p class="title is-4">Parametri za izračun</p>
 
                         <div class="field is-horizontal"
@@ -152,9 +253,9 @@
                         </div>
 
                         <p class="help">
-                            Za pretvorbe pri referenčnem kisiku (ppm | O<sub>2ref</sub> in mg/m<sup>3</sup> |
+                            Za pretvorbe pri referenčnem kisiku (mg/m<sup>3</sup> | O<sub>2ref</sub> in ppm |
                             O<sub>2ref</sub>) vnesite izmerjeni O<sub>2</sub> in referenčni O<sub>2,ref</sub>.
-                            NO<sub>x</sub> je izražen kot NO<sub>2</sub>.
+                            NO<sub>x</sub> = NO + NO<sub>2</sub> in je izražen kot NO<sub>2</sub>.
                         </p>
                     </div>
                 </div>
@@ -167,30 +268,192 @@
             <div class="box">
                 <p class="title is-4">Rezultati</p>
 
-                <div class="columns">
-                    <div class="column is-half">
-                        <table class="table is-striped is-fullwidth"
-                            title="Pretvorjene vrednosti izbranega plina">
+                <div class="columns is-multiline">
+                    <div class="column is-3">
+                        <table class="table is-striped is-fullwidth" title="Ogljikov monoksid">
                             <tbody>
                                 <tr>
-                                    <th id="out_gas_label">CO</th>
-                                    <td id="out_ppm">--</td>
+                                    <th>CO</th>
+                                    <td id="out_CO_ppm">--</td>
                                     <td>ppm</td>
                                 </tr>
                                 <tr>
                                     <th>&nbsp;</th>
-                                    <td id="out_mgm3">--</td>
+                                    <td id="out_CO_mgm3">--</td>
                                     <td>mg/m<sup>3</sup></td>
                                 </tr>
                                 <tr>
                                     <th>&nbsp;</th>
-                                    <td id="out_mgm3_o2">--</td>
-                                    <td id="out_o2ref_mg">mg/m<sup>3</sup> | O<sub>2</sub>=X%</td>
+                                    <td id="out_CO_mgm3o2">--</td>
+                                    <td id="out_CO_mgm3o2_unit">mg/m<sup>3</sup> | O<sub>2</sub>=X%</td>
                                 </tr>
                                 <tr>
                                     <th>&nbsp;</th>
-                                    <td id="out_ppm_o2">--</td>
-                                    <td id="out_o2ref_ppm">ppm | O<sub>2</sub>=X%</td>
+                                    <td id="out_CO_ppmo2">--</td>
+                                    <td id="out_CO_ppmo2_unit">ppm | O<sub>2</sub>=X%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="column is-3">
+                        <table class="table is-striped is-fullwidth" title="Dušikov monoksid">
+                            <tbody>
+                                <tr>
+                                    <th>NO</th>
+                                    <td id="out_NO_ppm">--</td>
+                                    <td>ppm</td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_NO_mgm3">--</td>
+                                    <td>mg/m<sup>3</sup></td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_NO_mgm3o2">--</td>
+                                    <td id="out_NO_mgm3o2_unit">mg/m<sup>3</sup> | O<sub>2</sub>=X%</td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_NO_ppmo2">--</td>
+                                    <td id="out_NO_ppmo2_unit">ppm | O<sub>2</sub>=X%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="column is-3">
+                        <table class="table is-striped is-fullwidth" title="Dušikov dioksid">
+                            <tbody>
+                                <tr>
+                                    <th>NO<sub>2</sub></th>
+                                    <td id="out_NO2_ppm">--</td>
+                                    <td>ppm</td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_NO2_mgm3">--</td>
+                                    <td>mg/m<sup>3</sup></td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_NO2_mgm3o2">--</td>
+                                    <td id="out_NO2_mgm3o2_unit">mg/m<sup>3</sup> | O<sub>2</sub>=X%</td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_NO2_ppmo2">--</td>
+                                    <td id="out_NO2_ppmo2_unit">ppm | O<sub>2</sub>=X%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="column is-3">
+                        <table class="table is-striped is-fullwidth"
+                            title="Dušikovi oksidi NOx = NO + NO2 (izraženo kot NO2)">
+                            <tbody>
+                                <tr>
+                                    <th>NO<sub>x</sub></th>
+                                    <td id="out_NOx_ppm">--</td>
+                                    <td>ppm</td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_NOx_mgm3">--</td>
+                                    <td>mg/m<sup>3</sup></td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_NOx_mgm3o2">--</td>
+                                    <td id="out_NOx_mgm3o2_unit">mg/m<sup>3</sup> | O<sub>2</sub>=X%</td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_NOx_ppmo2">--</td>
+                                    <td id="out_NOx_ppmo2_unit">ppm | O<sub>2</sub>=X%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="column is-3">
+                        <table class="table is-striped is-fullwidth" title="Žveplov dioksid">
+                            <tbody>
+                                <tr>
+                                    <th>SO<sub>2</sub></th>
+                                    <td id="out_SO2_ppm">--</td>
+                                    <td>ppm</td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_SO2_mgm3">--</td>
+                                    <td>mg/m<sup>3</sup></td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_SO2_mgm3o2">--</td>
+                                    <td id="out_SO2_mgm3o2_unit">mg/m<sup>3</sup> | O<sub>2</sub>=X%</td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_SO2_ppmo2">--</td>
+                                    <td id="out_SO2_ppmo2_unit">ppm | O<sub>2</sub>=X%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="column is-3">
+                        <table class="table is-striped is-fullwidth" title="Didušikov oksid">
+                            <tbody>
+                                <tr>
+                                    <th>N<sub>2</sub>O</th>
+                                    <td id="out_N2O_ppm">--</td>
+                                    <td>ppm</td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_N2O_mgm3">--</td>
+                                    <td>mg/m<sup>3</sup></td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_N2O_mgm3o2">--</td>
+                                    <td id="out_N2O_mgm3o2_unit">mg/m<sup>3</sup> | O<sub>2</sub>=X%</td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_N2O_ppmo2">--</td>
+                                    <td id="out_N2O_ppmo2_unit">ppm | O<sub>2</sub>=X%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="column is-3">
+                        <table class="table is-striped is-fullwidth" title="Vodikov sulfid">
+                            <tbody>
+                                <tr>
+                                    <th>H<sub>2</sub>S</th>
+                                    <td id="out_H2S_ppm">--</td>
+                                    <td>ppm</td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_H2S_mgm3">--</td>
+                                    <td>mg/m<sup>3</sup></td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_H2S_mgm3o2">--</td>
+                                    <td id="out_H2S_mgm3o2_unit">mg/m<sup>3</sup> | O<sub>2</sub>=X%</td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td id="out_H2S_ppmo2">--</td>
+                                    <td id="out_H2S_ppmo2_unit">ppm | O<sub>2</sub>=X%</td>
                                 </tr>
                             </tbody>
                         </table>
