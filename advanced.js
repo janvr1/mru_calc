@@ -1,5 +1,7 @@
-const O2_MAX = 20.95; // maksimalna vsebnost kisika v %
-const V_MOL = 22.414;  // molski volumen idealnega plina pri n. pogojih (l/mol)
+const O2_MAX = 20.95;   // maksimalna vsebnost kisika v %
+const V_MOL_0 = 22.414; // molski volumen idealnega plina pri privzetih n. pogojih (l/mol)
+const T0 = 273.15;      // privzeta normna temperatura (K) = 0 degC
+const P0 = 1013.25;     // privzeti normni tlak (mbar) = 101,325 kPa
 
 // Molske mase plinov (g/mol) in oznake za prikaz.
 // NOx se po dogovoru izraža kot NO2 (uporabi molsko maso NO2).
@@ -18,9 +20,23 @@ const INPUT_GASES = ["CO", "NO", "NO2", "SO2", "N2O", "H2S"];
 // Plini, ki se prikažejo v rezultatih
 const RESULT_GASES = ["CO", "NO", "NO2", "NOx", "SO2", "N2O", "H2S"];
 
+// Molski volumen glede na trenutne (privzete ali lastne) normne pogoje.
+// Po enačbi idealnega plina: Vm = Vm0 * (T/T0) * (p0/p)
+function molar_volume() {
+    if (!document.getElementById("custom_norm").checked) {
+        return V_MOL_0;
+    }
+    var t = parseFloat(document.getElementById("norm_T").value); // degC
+    var p = parseFloat(document.getElementById("norm_p").value); // mbar
+    if (isNaN(t) || isNaN(p) || p <= 0 || (t + T0) <= 0) {
+        return NaN;
+    }
+    return V_MOL_0 * ((t + T0) / T0) * (P0 / p);
+}
+
 // Pretvorbeni faktor mg/m3 na ppm za posamezni plin
 function mg_m3ppm(gas) {
-    return GASES[gas].M / V_MOL;
+    return GASES[gas].M / molar_volume();
 }
 
 // Faktor za preračun na referenčno vsebnost kisika
@@ -36,6 +52,20 @@ const form = document.getElementById("input_form");
 form.addEventListener("submit", function (e) { e.preventDefault(); calculate(); });
 document.addEventListener("input", calculate);
 document.addEventListener("change", calculate);
+
+// Stikalo za lastne normne pogoje: omogoči/onemogoči vnosni polji
+var customNorm = document.getElementById("custom_norm");
+customNorm.addEventListener("change", function () {
+    var on = customNorm.checked;
+    document.getElementById("norm_T").disabled = !on;
+    document.getElementById("norm_p").disabled = !on;
+    if (!on) {
+        // Ob izklopu povrni privzete normne pogoje
+        document.getElementById("norm_T").value = 0;
+        document.getElementById("norm_p").value = P0;
+    }
+    calculate();
+});
 
 function fmt(x) {
     if (!isFinite(x)) return "--";
@@ -68,6 +98,11 @@ function calculate() {
         !isNaN(parseFloat(o2_meas)) && !isNaN(parseFloat(o2_ref)) &&
         parseFloat(o2_meas) < O2_MAX;
     var k = haveO2 ? o2_factor(parseFloat(o2_ref), parseFloat(o2_meas)) : NaN;
+
+    // Prikaži trenutni molski volumen (glede na normne pogoje)
+    var vm = molar_volume();
+    document.getElementById("out_vmol").innerHTML =
+        isFinite(vm) ? (Math.round(vm * 10000) / 10000).toString().replace(".", ",") + " l/mol" : "--";
 
     // Dejanska koncentracija v ppm za vsak vhodni plin
     var ppm = {};

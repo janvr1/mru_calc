@@ -12,6 +12,50 @@
 
     <link rel="stylesheet" href="bulma.min.css">
     <link href="favicon.ico" rel="icon" type="image/x-icon" />
+    <style>
+        /* Preprosto stikalo (toggle switch) */
+        .switch-wrap {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .switch-wrap input {
+            display: none;
+        }
+
+        .switch-track {
+            position: relative;
+            width: 3rem;
+            height: 1.5rem;
+            background: #b5b5b5;
+            border-radius: 1rem;
+            transition: background .2s ease;
+            margin-right: .6rem;
+            flex: none;
+        }
+
+        .switch-track::after {
+            content: "";
+            position: absolute;
+            top: .15rem;
+            left: .15rem;
+            width: 1.2rem;
+            height: 1.2rem;
+            background: #fff;
+            border-radius: 50%;
+            transition: transform .2s ease;
+        }
+
+        .switch-wrap input:checked+.switch-track {
+            background: #485fc7;
+        }
+
+        .switch-wrap input:checked+.switch-track::after {
+            transform: translateX(1.5rem);
+        }
+    </style>
 </head>
 
 <body>
@@ -466,28 +510,62 @@
     <section class="section">
         <div class="container">
             <div class="box">
-                <p class="title is-5">Normni pogoji</p>
+                <div class="level is-mobile">
+                    <div class="level-left">
+                        <p class="title is-5">Normni pogoji</p>
+                    </div>
+                    <div class="level-right">
+                        <label class="switch-wrap" title="Vklopite za vnos lastnih normnih pogojev">
+                            <input type="checkbox" id="custom_norm">
+                            <span class="switch-track"></span>
+                            <span>Lastni normni pogoji</span>
+                        </label>
+                    </div>
+                </div>
                 <p class="subtitle is-6">Pretvorbe med ppm in mg/m<sup>3</sup> temeljijo na naslednjih normnih
                     pogojih:</p>
+
                 <table class="table is-narrow">
                     <tbody>
                         <tr>
                             <th>Temperatura</th>
-                            <td>0 &deg;C (273,15 K)</td>
+                            <td>
+                                <div class="field has-addons" style="margin-bottom:0;">
+                                    <div class="control">
+                                        <input class="input is-small" type="number" id="norm_T" value="0" step=".01"
+                                            style="width:7rem;" disabled />
+                                    </div>
+                                    <div class="control">
+                                        <a class="button is-static is-small"><b>&deg;C</b></a>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <th>Tlak</th>
-                            <td>1013,25 mbar (101,325 kPa)</td>
+                            <td>
+                                <div class="field has-addons" style="margin-bottom:0;">
+                                    <div class="control">
+                                        <input class="input is-small" type="number" id="norm_p" value="1013.25"
+                                            min="0" step=".01" style="width:7rem;" disabled />
+                                    </div>
+                                    <div class="control">
+                                        <a class="button is-static is-small"><b>mbar</b></a>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <th>Molski volumen idealnega plina (V<sub>m</sub>)</th>
-                            <td>22,414 l/mol</td>
+                            <td id="out_vmol">22,414 l/mol</td>
                         </tr>
                     </tbody>
                 </table>
                 <p class="help">
                     Faktor za pretvorbo iz ppm v mg/m<sup>3</sup> se izračuna kot molska masa plina, deljena z
-                    molskim volumnom V<sub>m</sub> = 22,414 l/mol.
+                    molskim volumnom V<sub>m</sub>. Privzeti normni pogoji so 0&nbsp;&deg;C in 1013,25&nbsp;mbar
+                    (V<sub>m</sub> = 22,414&nbsp;l/mol). Pri vklopljenem stikalu se V<sub>m</sub> preračuna iz
+                    vnesene temperature in tlaka po enačbi idealnega plina.
                 </p>
             </div>
         </div>
